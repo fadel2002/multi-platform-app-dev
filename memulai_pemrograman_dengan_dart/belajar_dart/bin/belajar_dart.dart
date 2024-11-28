@@ -1,12 +1,42 @@
 import 'dart:io';
 
 void main(List<String> arguments) {
-  // func1();
-  // func2();
-  // func3();
-  // func4();
-  // func5();
+  DartFundamental_ControlFlow();
+  Collections();
+}
+
+void Collections(){
+  // func12();
+  // func13();
+  // func14();
+  // func15();
+  // func16();
+  // func17();
+  // func18();
+  // func19();
+  // func20();
+  // func21();
+  // func22();
+  // func23();
+  // func24();
+  // func25();
+  // func26();
+  // func27();
+  // func28();
+}
+
+void DartFundamental_ControlFlow(){
+  func1();
+  func2();
+  func3();
+  func4();
+  func5();
   func6();
+  func7();
+  func8();
+  func9();
+  func10();
+  func11();
 }
 
 void func1(){
@@ -88,4 +118,76 @@ void func6(){
   } finally {
     print('This line still executed');
   }
+}
+
+void func7(){
+  double average(num num1, num num2) => (num1 + num2) / 2;
+  void greeting() => print('Hello');
+  void greetNewUser({String? name, int? age, bool? isVerified}){
+
+  }
+  void greetNewUserRequired({required String name, required int age, bool isVerified = false}) {
+
+  }
+  greetNewUser(name: "Fadel");
+  greetNewUserRequired(name: "fadel", age: 11);
+  print(average(1, 2));
+  greeting();
+}
+
+void func8(){
+  var openHours = 8;
+  var closedHours = 21;
+  var now = 17;
+
+  if (now > openHours && now < closedHours) {
+    print("Hello, we're open");
+  } else {
+    print("Sorry, we've closed");
+  }
+
+  var shopStatus = now > openHours ? "Hello, we're open" : "Sorry, we've closed";
+}
+
+void func9() {
+  for (var i = 0; i < 10; i++) {
+    print('hello ${i + 1}');
+  }
+}
+
+void func10(){
+  for (var i = 0; i < 10; i++) {
+    print('hello ${i + 1}');
+  }
+}
+
+void func11(){
+  final firstNumber = 13;
+  final secondNumber = 18;
+  final operator = "+";
+
+  switch (operator) {
+    case '+':
+      print(
+          '$firstNumber $operator $secondNumber = ${firstNumber + secondNumber}');
+      break;
+    case '-':
+      print(
+          '$firstNumber $operator $secondNumber = ${firstNumber - secondNumber}');
+      break;
+    case '*':
+      print(
+          '$firstNumber $operator $secondNumber = ${firstNumber * secondNumber}');
+      break;
+    case '/':
+      print(
+          '$firstNumber $operator $secondNumber = ${firstNumber / secondNumber}');
+      break;
+    default:
+      print('Operator tidak ditemukan');
+  }
+}
+
+void func12(){
+  List<int> numberList = [1, 2, 3, 4, 5];
 }
