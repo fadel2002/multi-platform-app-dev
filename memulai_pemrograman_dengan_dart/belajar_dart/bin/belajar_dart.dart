@@ -1,14 +1,12 @@
 import 'dart:io';
 
 void main(List<String> arguments) {
-  DartFundamental_ControlFlow();
-  Collections();
+  // dartFundamentalControlFlow();
+  // collections();
+  objectOrientedProgramming();
 }
 
-void Collections(){
-  // func12();
-  // func13();
-  // func14();
+void objectOrientedProgramming(){
   // func15();
   // func16();
   // func17();
@@ -16,7 +14,7 @@ void Collections(){
   // func19();
   // func20();
   // func21();
-  // func22();
+  func22();
   // func23();
   // func24();
   // func25();
@@ -25,7 +23,13 @@ void Collections(){
   // func28();
 }
 
-void DartFundamental_ControlFlow(){
+void collections(){
+  func12();
+  func13();
+  func14();
+}
+
+void dartFundamentalControlFlow(){
   func1();
   func2();
   func3();
@@ -190,4 +194,257 @@ void func11(){
 
 void func12(){
   List<int> numberList = [1, 2, 3, 4, 5];
+  print(numberList.runtimeType);
+  List stringList = ['Programming', 'Hello', 'Dicoding', 'Dart'];
+  print(stringList.runtimeType);
+  List dynamicList = [1, 'Dicoding', true];
+  print(dynamicList.runtimeType);
+
+  stringList.forEach((s) => print(s));
+  stringList.remove('Programming');
+  // stringList.removeAt(1);
+  // stringList.removeLast();
+  // stringList.removeRange(0,2);
+  var spreadObject = [numberList, stringList];
+  print(spreadObject);
+  var spread = [...numberList, ...stringList];
+  print(spread);
+
+  List<dynamic>? list = [1, 2];
+  List<dynamic>? list2 = [0, ...?list];
+  print(list2);
+}
+
+void func13(){
+  Set<int> numberSet = new Set.from([1, 4, 7, 4, 1]);
+  print(numberSet);
+  numberSet.add(6);
+  numberSet.addAll({2, 2, 3});
+  print(numberSet);
+  numberSet.remove(3);
+  print(numberSet);
+  print(numberSet.elementAt(2));
+
+  var setA = {1, 2, 4, 5};
+  var setB = {1, 5, 7};
+  var union = setA.union(setB);
+  var intersection = setA.intersection(setB);
+  print("union: $union");
+  print("intersection: $intersection");
+}
+
+void func14(){
+  var capital = {
+    'Jakarta': 'Indonesia',
+    'London': 'England',
+    'Tokyo': 'Japan',
+  };
+  var mapKeys = capital.keys;
+  print("mapKeys: $mapKeys");
+  var mapValues = capital.values;
+  print("mapValues: $mapValues");
+  capital['New Delhi'] = 'India';
+  print(capital);
+}
+
+class Animal {
+  String _name = '';
+  int _age = 0;
+  double _weight = 0;
+
+  Animal(this._name, this._age, this._weight);
+
+  Animal.withMultiplier(this._name ,int age, double mult) {
+    _age = (age * mult).toInt();
+  }
+
+  // Setter
+  set name(String value) {
+    _name = value;
+  }
+
+  // Getter
+  String get name => _name;
+  double get weight => _weight;
+  int get age => _age;
+
+  // Methods
+  void eat() {
+    print('$_name is eating.');
+    _weight = _weight + 0.2;
+  }
+
+  void sleep() {
+    print('$_name is sleeping.');
+  }
+
+  void poop() {
+    print('$_name is pooping.');
+    _weight = _weight - 0.1;
+  }
+}
+
+void func15(){
+  var dicodingCat = Animal('Gray', 2, 4.2);
+  dicodingCat.eat();
+  dicodingCat.poop();
+  print(dicodingCat.weight);
+
+  var dicodingDog = Animal.withMultiplier('Gray', 2, 5);
+  print(dicodingDog.age);
+  print(dicodingDog.weight);
+
+  var dicodingEagle = (Animal('', 2, 4.2)
+    ..name = 'Eagle'
+    ..eat());
+  print(dicodingEagle.name);
+}
+
+class Cat extends Animal {
+  String furColor;
+  Cat(super.name, super.age, super.weight, this.furColor);
+  void walk() {
+    print('$name is walking');
+  }
+  void changeFur(){
+    this.furColor = "KCA";
+  }
+}
+
+void func16(){
+  var dicodingCat = Cat('Grayson', 2, 2.2, 'Gray');
+  dicodingCat.walk();
+  dicodingCat.eat();
+  print(dicodingCat.weight);
+}
+
+class Flyablee {
+  void fly() {}
+}
+
+class Bird extends Animal implements Flyablee {
+  String featherColor;
+
+  Bird(String name, int age, double weight, this.featherColor)
+      : super(name, age, weight);
+
+  @override
+  void fly() {
+    print('$name is flying');
+  }
+}
+
+void func17(){
+  var dicodingBird = Bird('Birdy', 2, 0.8, 'Gray');
+  dicodingBird.fly();
+  dicodingBird.eat();
+}
+
+enum Rainbow {
+  red, orange, yellow, green, blue, indigo, violet
+}
+
+enum Weather {
+  sunny, cloudy, rain, storm;
+}
+
+void func18(){
+  print(Rainbow.values);
+  print(Rainbow.blue);
+  print(Rainbow.orange.index);
+}
+
+mixin Flyable {
+  void fly() {
+    print("I'm flying");
+  }
+}
+
+mixin Walkable {
+  void walk() {
+    print("I'm walking");
+  }
+}
+
+mixin Swimmable {
+  void swim() {
+    print("I'm swimming");
+  }
+}
+
+void func19(){
+  // class Cat extends Mammal with Walkable { }
+  // class Duck extends Bird with Walkable, Flyable, Swimmable { }
+}
+
+abstract class Performer {
+  void perform();
+}
+
+mixin Dancer implements Performer {
+  @override
+  void perform() {
+    print('Dancing');
+  }
+}
+
+mixin Singer implements Performer {
+  @override
+  void perform() {
+    print('Singing');
+  }
+}
+
+class Musician extends Performer with Dancer, Singer {
+  void showTime() {
+    perform();
+  }
+}
+
+void func20(){
+  // Singer karena mixin overide perform() paling terakhir
+  var arielNoah = Musician();
+  arielNoah.perform();
+}
+
+extension Sorting on List<int> {
+  List<int> sortAsc() {
+    var list = this;
+    var length = this.length;
+    for (int i = 0; i < length - 1; i++) {
+      int min = i;
+      for (int j = i + 1; j < length; j++) {
+        if (list[j] < list[min]) {
+          min = j;
+        }
+      }
+      int tmp = list[min];
+      list[min] = list[i];
+      list[i] = tmp;
+    }
+    return list;
+  }
+}
+
+void func21(){
+  var unsortedNumbers = [2, 5, 3, 1, 4];
+  print(unsortedNumbers);
+  var sortedNumbers = unsortedNumbers.sortAsc();
+  print(sortedNumbers);
+}
+
+class Car {
+  String? color;
+  String? fuelType;
+  int? speed;
+  int? maxSpeed;
+
+  void accelerate() { }
+  void brake() { }
+  void refuel(num liters) { }
+}
+
+void func22(){
+  var car = Car();
+  print(car);
 }
