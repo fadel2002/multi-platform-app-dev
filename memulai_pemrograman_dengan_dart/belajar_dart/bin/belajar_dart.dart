@@ -5,10 +5,23 @@ void main(List<String> arguments) {
   // collections();
   // objectOrientedProgramming();
   // functionalStyles();
-  // dartTypeSystem();
+  // dartTypeSystems();
+  // dartFutures();
+  effectiveDart();
 }
 
-void dartTypeSystem(){
+void effectiveDart(){
+  func33();
+}
+
+void dartFutures(){
+  func29();
+  func30();
+  func31();
+  func32();
+}
+
+void dartTypeSystems(){
   func26();
   func27();
   func28();
@@ -516,4 +529,151 @@ void func27(){
 void func28(){
   var x = 0;
   print(x.runtimeType);
+}
+
+void func29(){
+  Future<String> getOrder() {
+    return Future.delayed(Duration(seconds: 3), () {
+      var isStockAvailable = false;
+      if (isStockAvailable) {
+        return 'Coffee Boba';
+      } else {
+        throw 'Our stock is not enough.';
+      }
+    });
+  }
+  getOrder().then((value) {
+    print('Your ordered: $value');
+  }).catchError((error) {
+    print('Sorry. $error');
+  }).whenComplete(() {
+    print('Thank you');
+  });
+  print('Getting your order...');
+}
+
+void func30() async {
+  Future<String> getOrder() {
+    return Future.delayed(Duration(seconds: 3), () {
+      return 'Coffee Boba';
+    });
+  }
+  print('Getting your order...');
+  var order = await getOrder();
+  print('You order: $order');
+}
+
+void func31() async {
+  Future<String> getOrder() {
+    return Future.delayed(Duration(seconds: 3), () {
+      var isStockAvailable = false;
+      if (isStockAvailable) {
+        return 'Coffee Boba';
+      } else {
+        throw 'Our stock is not enough.';
+      }
+    });
+  }
+  print('Getting your order...');
+  try {
+    var order = await getOrder();
+    print('You order: $order');
+  } catch (error) {
+    print('Sorry. $error');
+  } finally {
+    print('Thank you');
+  }
+}
+
+void func32() async {
+  Future<String> fetchUsername() {
+    return Future.delayed(Duration(seconds: 3), () => 'DartUser');
+  }
+
+  try {
+    print('Fetching username...');
+    var username = await fetchUsername();
+    print('You are logged in as $username');
+    print('Welcome!');
+  } catch(e) {
+    print(e);
+  }
+}
+
+void func33(){
+  // DO name types using UpperCamelCase.
+    // abstract class Animal {}
+    // abstract class Mammal extends Animal {}
+    // mixin Flyable {}
+    // class Cat extends Mammal with Walkable {}
+
+  // DON’T use prefix letters.
+    // var instance;  // good
+    // var mInstance;  // bad
+
+  // PREFER starting function or method comments with third-person verbs.
+    // Returns `true` if [username] and [password] inputs are valid.
+      // bool isValid(String username, String password) { }
+
+  // PREFER a noun phrase for a non-boolean property or variable.
+    // Good
+      // cat.furColor;
+      // calculator.firstNumber;
+      // list.length;
+    // Bad
+      // list.deleteItems;
+    // Use non-imperative noun for boolean variable or property
+      // list.isEmpty
+      // dialog.isOpen
+
+  // DO use ?? to convert null to a boolean value.
+  var stock;
+  if(stock?.isEnough ?? false) {
+    print('Making you a cup of coffee...');
+  }
+
+  // AVOID using curly braces in interpolation when not needed.
+  var name = "Fadel", thisYear = 2024, birthYear = 2002;
+  print('Hi, $name, You are ${thisYear - birthYear} years old.');
+
+  // PREFER async/await over using raw futures.
+    Future<String> getOrder() {
+      return Future.delayed(Duration(seconds: 3), () {
+        return 'Coffee Boba';
+      });
+    }
+    // raw future
+    void raw() {
+      getOrder().then((value) {
+        print('You order: $value');
+      })
+          .catchError((error) {
+        print('Sorry. $error');
+      });
+      print('Getting your order...');
+    }
+    // async-await
+    void asyncAwait() async {
+      print('Getting your order...');
+      try {
+        var order = await getOrder();
+        print('You order: $order');
+      } catch (error) {
+        print('Sorry. $error');
+      }
+    }
+  // CONSIDER making the code read like a sentence.
+    // Good
+    // “If store is open ...”
+    // if (store.isOpen)
+    // “hey garfield, eat!”
+    // garfield.eat();
+
+    // Bad
+    // Ambigu apakah memerintahkan toko untuk tutup atau mendapatkan status dari toko
+    // if (store.close)
+
+  // CONSIDER using function type syntax for parameters.
+    // List filter(bool predicate(item)) { }
+    // List filter(Function predicate) { }  // function type syntax
 }
