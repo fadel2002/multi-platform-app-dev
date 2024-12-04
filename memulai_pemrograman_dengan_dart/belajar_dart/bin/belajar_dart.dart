@@ -7,7 +7,18 @@ void main(List<String> arguments) {
   // functionalStyles();
   // dartTypeSystems();
   // dartFutures();
-  effectiveDart();
+  // effectiveDart();
+
+  Future<String> fetchUsername() {
+    return Future.delayed(Duration(seconds: 3), () => 'DartUser');
+  }
+  Future<void> tes() async {
+    print('Fetching username...');
+    var username = fetchUsername();
+    print('You are logged in as $username');
+    print('Welcome!');
+  }
+  tes();
 }
 
 void effectiveDart(){
