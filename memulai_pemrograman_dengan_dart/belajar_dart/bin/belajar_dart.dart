@@ -3,24 +3,32 @@ import 'dart:io';
 void main(List<String> arguments) {
   // dartFundamentalControlFlow();
   // collections();
-  objectOrientedProgramming();
+  // objectOrientedProgramming();
+  // functionalStyles();
+  // dartTypeSystem();
+}
+
+void dartTypeSystem(){
+  func26();
+  func27();
+  func28();
+}
+
+void functionalStyles(){
+  func23();
+  func24();
+  func25();
 }
 
 void objectOrientedProgramming(){
-  // func15();
-  // func16();
-  // func17();
-  // func18();
-  // func19();
-  // func20();
-  // func21();
+  func15();
+  func16();
+  func17();
+  func18();
+  func19();
+  func20();
+  func21();
   func22();
-  // func23();
-  // func24();
-  // func25();
-  // func26();
-  // func27();
-  // func28();
 }
 
 void collections(){
@@ -87,7 +95,8 @@ void func3(){
 }
 
 void func4(){
-  if (true) {
+  bool isTrue = (2-1) == 4;
+  if (isTrue) {
     print("It's true");
   } else {
     print("It's False");
@@ -151,6 +160,7 @@ void func8(){
   }
 
   var shopStatus = now > openHours ? "Hello, we're open" : "Sorry, we've closed";
+  print(shopStatus);
 }
 
 void func9() {
@@ -210,7 +220,7 @@ void func12(){
   var spread = [...numberList, ...stringList];
   print(spread);
 
-  List<dynamic>? list = [1, 2];
+  List<dynamic>? list;
   List<dynamic>? list2 = [0, ...?list];
   print(list2);
 }
@@ -447,4 +457,63 @@ class Car {
 void func22(){
   var car = Car();
   print(car);
+}
+
+void func23(){
+  var sum = (int num1, int num2) => num1 + num2;
+  Function printLambda = () => print('This is lambda function');
+  printLambda();
+  print(sum(3, 4));
+}
+
+void func24(){
+  void myHigherOrderFunction(
+      String message,
+      int Function(int num1, int num2) myFunction,
+      ) {
+    print(message);
+    print(myFunction(3, 4));
+  }
+  // Opsi 1
+  int Function(int num1, int num2) sum = (int num1, int num2) => num1 + num2;
+  myHigherOrderFunction('Hello', sum);
+  // Opsi 2
+  myHigherOrderFunction('Hello', (num1, num2) => num1 + num2);
+}
+
+void func25(){
+  Function calculate(base) {
+    var count = 1;
+    return () => print("Value is ${base + count++}");
+  }
+  var closureExample = calculate(2);
+  closureExample();
+  closureExample();
+  closureExample();
+}
+
+void func26(){
+  List<int> numberList = [1, 2, 3, 4, 5];
+  List<String> stringList = ['Dart', 'Flutter', 'Android', 'iOS'];
+  List dynamicList = [1, 2, 3, 'empat'];  // List<dynamic>
+  
+  print('${numberList.runtimeType} ${stringList.runtimeType} ${dynamicList.runtimeType}');
+}
+
+class Animala {}
+
+class Birda implements Animala {}
+
+class Dovea implements Birda {}
+
+class Ducka implements Birda {}
+
+void func27(){
+  List<Birda> birdList = [Birda(), Dovea(), Ducka()];
+  print(birdList);
+}
+
+void func28(){
+  var x = 0;
+  print(x.runtimeType);
 }
