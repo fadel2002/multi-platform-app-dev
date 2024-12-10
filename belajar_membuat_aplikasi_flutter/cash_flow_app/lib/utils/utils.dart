@@ -7,7 +7,7 @@ String formatToIDR(int amount) {
   return format.format(amount);
 }
 
-String dateFormat(String date){
+String formatDate(String date){
   DateTime parsedDate = DateFormat('yyyy-MM-dd').parse(date);
   String formattedDate = DateFormat('dd MMM yyyy').format(parsedDate);
   return formattedDate;

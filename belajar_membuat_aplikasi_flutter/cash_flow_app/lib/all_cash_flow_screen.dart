@@ -134,7 +134,7 @@ class CashFlowList extends StatelessWidget {
         return InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const DetailCashFlowScreen();
+              return DetailCashFlowScreen(cashFlow: cashFlow);
             }));
           },
           child: Card(
@@ -158,7 +158,7 @@ class CashFlowList extends StatelessWidget {
                       const SizedBox(height: 5),
                       Text(formatToIDR(cashFlow.amount).toString()),
                       const SizedBox(height: 5),
-                      Text(dateFormat(cashFlow.date)),
+                      Text(formatDate(cashFlow.date)),
                       const SizedBox(height: 5),
                     ],
                   ),

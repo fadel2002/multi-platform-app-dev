@@ -28,21 +28,5 @@ AppBar buildAppBar(String title) {
         );
       },
     ),
-    actions: [
-      IconButton(
-        icon: const Icon(Icons.notifications),
-        onPressed: () {
-          Fluttertoast.showToast(
-            msg: "Notification clicked",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-        },
-      ),
-    ],
   );
 }
