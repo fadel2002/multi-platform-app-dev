@@ -1,10 +1,11 @@
 import 'dart:math';
 
 import 'package:cash_flow_app/all_cash_flow_screen.dart';
-import 'package:cash_flow_app/model/cash_flow.dart';
+import 'package:cash_flow_app/components/build_app_bar.dart';
+import 'package:cash_flow_app/detail_cash_flow_screen.dart';
+import 'package:cash_flow_app/models/cash_flow.dart';
+import 'package:cash_flow_app/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -12,49 +13,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Cash Flow App",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20
-          ),
-        ),
-        backgroundColor: Colors.blue[800],
-        iconTheme: const IconThemeData(
-          color: Colors.white, // Set the icon color here
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            Fluttertoast.showToast(
-              msg: "Menu clicked",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0,
-            );
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              Fluttertoast.showToast(
-                msg: "Notification clicked",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.black,
-                textColor: Colors.white,
-                fontSize: 16.0,
-              );
-            },
-          ),
-        ],
-      ),
+      appBar: buildAppBar("Cash Flow App"),
       body: SingleChildScrollView(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -135,18 +94,11 @@ class MainScreenAndroid extends StatelessWidget {
                 ),
                 SizedBox(
                   width: double.infinity,
-
                   child: ElevatedButton(
                     onPressed: () {
-                      Fluttertoast.showToast(
-                        msg: "Show clicked",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.black,
-                        textColor: Colors.white,
-                        fontSize: 16.0,
-                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return AllCashFlowScreen();
+                      }));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white, backgroundColor: Colors.blue,
@@ -182,7 +134,6 @@ class MainScreenAndroid extends StatelessWidget {
               borderRadius: BorderRadius.circular(6)
           ),
           margin: const EdgeInsets.all(8.0),
-          // height: 200,
           child: CashFlowList(cashFlowList: sortRecent(cashFlowIncome)),
         ),
         const Padding(
@@ -202,7 +153,6 @@ class MainScreenAndroid extends StatelessWidget {
               borderRadius: BorderRadius.circular(6)
           ),
           margin: const EdgeInsets.all(8.0),
-          // height: 200,
           child: CashFlowList(cashFlowList: sortRecent(cashFlowExpense)),
         ),
       ],
@@ -225,7 +175,7 @@ class CashFlowList extends StatelessWidget {
         return InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return AllCashFlowScreen();
+              return DetailCashFlowScreen();
             }));
           },
           child: Card(
@@ -272,22 +222,4 @@ class MainScreenWeb extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container();
   }
-}
-
-String formatToIDR(int amount) {
-  final format = NumberFormat.simpleCurrency(locale: 'id_ID'); // Locale for Indonesia
-  return format.format(amount);
-}
-
-String dateFormat(String date){
-  DateTime parsedDate = DateFormat('yyyy-MM-dd').parse(date);
-  String formattedDate = DateFormat('dd MMM yyyy').format(parsedDate);
-  return formattedDate;
-}
-
-List<CashFlow> sortRecent(List<CashFlow> cashFlow){
-  cashFlow.sort((a, b) {
-    return DateTime.parse(b.date).compareTo(DateTime.parse(a.date));
-  });
-  return cashFlow;
 }
