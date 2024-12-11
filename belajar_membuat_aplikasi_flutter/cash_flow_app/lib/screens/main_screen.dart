@@ -1,30 +1,45 @@
 import 'dart:math';
 
-import 'package:cash_flow_app/all_cash_flow_screen.dart';
+import 'package:cash_flow_app/screens/all_cash_flow_screen.dart';
 import 'package:cash_flow_app/components/build_app_bar.dart';
-import 'package:cash_flow_app/detail_cash_flow_screen.dart';
+import 'package:cash_flow_app/screens/detail_cash_flow_screen.dart';
 import 'package:cash_flow_app/models/cash_flow.dart';
 import 'package:cash_flow_app/utils/utils.dart';
 import 'package:flutter/material.dart';
+
+import '../components/build_drawer_items.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar("Cash Flow App"),
-      body: SingleChildScrollView(
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth <= 600) {
-              return const MainScreenAndroid();
-            } else {
-              return const MainScreenWeb(gridCount: 4);
-            }
-          },
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth <= 600) {
+          return Scaffold(
+            appBar: buildAppBar("Cash Flow App"),
+            body: const SingleChildScrollView(
+              child: MainScreenAndroid(),
+            ),
+            drawer: buildDrawerItems(context),
+          );
+        } else {
+          return Scaffold(
+            appBar: buildAppBar("Cash Flow App"),
+            body: Row(
+              children: [
+                Container(
+                  width: 250,
+                  color: Colors.blue[800],
+                  child: buildDrawerItems(context),
+                ),
+                const MainScreenWeb(gridCount: 4),
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 }
@@ -39,10 +54,10 @@ class MainScreenAndroid extends StatelessWidget {
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-            color: Colors.white, // Background color
+            color: Colors.white,
             border: Border.all(
-              color: Colors.black,  // Border color
-              width: 1.0,         // Border width
+              color: Colors.black,
+              width: 1.0,
             ),
             borderRadius: BorderRadius.circular(6)
           ),
@@ -97,7 +112,7 @@ class MainScreenAndroid extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return AllCashFlowScreen();
+                        return const AllCashFlowScreen();
                       }));
                     },
                     style: ElevatedButton.styleFrom(
@@ -126,10 +141,10 @@ class MainScreenAndroid extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-              color: Colors.white, // Background color
+              color: Colors.white,
               border: Border.all(
-                color: Colors.black,  // Border color
-                width: 1.0,         // Border width
+                color: Colors.black,
+                width: 1.0,
               ),
               borderRadius: BorderRadius.circular(6)
           ),
@@ -145,10 +160,10 @@ class MainScreenAndroid extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-              color: Colors.white, // Background color
+              color: Colors.white,
               border: Border.all(
-                color: Colors.black,  // Border color
-                width: 1.0,         // Border width
+                color: Colors.black,
+                width: 1.0,
               ),
               borderRadius: BorderRadius.circular(6)
           ),

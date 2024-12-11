@@ -1,9 +1,10 @@
 import 'package:cash_flow_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-import 'components/build_app_bar.dart';
-import 'detail_cash_flow_screen.dart';
-import 'models/cash_flow.dart';
+import '../components/build_app_bar.dart';
+import '../components/build_dropdown_items.dart';
+import '../screens/detail_cash_flow_screen.dart';
+import '../models/cash_flow.dart';
 
 class AllCashFlowScreen extends StatelessWidget {
   const AllCashFlowScreen({super.key});
@@ -33,7 +34,7 @@ class AllCashFlowScreenAndroid extends StatefulWidget {
 }
 
 class _AllCashFlowScreenAndroidState extends State<AllCashFlowScreenAndroid> {
-  String _selectedType = "All"; // Default filter value
+  String _selectedType = "All";
 
   @override
   Widget build(BuildContext context) {
@@ -66,33 +67,17 @@ class _AllCashFlowScreenAndroidState extends State<AllCashFlowScreenAndroid> {
                     });
                   }
                 },
-                items: const [
-                  DropdownMenuItem(value: "All", child: Padding(
-                      padding: EdgeInsets.all(4.0),  // Adjust padding here
-                      child: Text("All")
-                    ),
-                  ),
-                  DropdownMenuItem(value: "Expense", child: Padding(
-                      padding: EdgeInsets.all(4.0),  // Adjust padding here
-                      child: Text("Expense")
-                    ),
-                  ),
-                  DropdownMenuItem(value: "Income", child: Padding(
-                      padding: EdgeInsets.all(4.0),  // Adjust padding here
-                      child: Text("Income"),
-                    ),
-                  ),
-                ],
+                items: buildDropdownItems(["All", "Expense", "Income"]),
                 icon: const Align(
-                  alignment: Alignment.centerRight, // Aligns the icon to the right
-                  child: Icon(Icons.arrow_drop_down), // Custom icon for the dropdown arrow
+                  alignment: Alignment.centerRight,
+                  child: Icon(Icons.arrow_drop_down),
                 ),
                 isExpanded: true,
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.bold
-                ), // Adds shadow to the dropdown menu
+                ),
               ),
             ),
           ],
@@ -118,7 +103,6 @@ class _AllCashFlowScreenAndroidState extends State<AllCashFlowScreenAndroid> {
     );
   }
 }
-
 
 class CashFlowList extends StatelessWidget {
   final List<CashFlow> cashFlowList;

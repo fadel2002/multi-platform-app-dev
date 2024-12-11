@@ -2,7 +2,7 @@ import 'package:cash_flow_app/models/cash_flow.dart';
 import 'package:cash_flow_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-import 'components/build_app_bar.dart';
+import '../components/build_app_bar.dart';
 
 class DetailCashFlowScreen extends StatelessWidget {
   final CashFlow cashFlow;
@@ -51,11 +51,11 @@ class DetailCashFlowScreenAndroid extends StatelessWidget{
             children: [
               Text(
                 "Type: ${cashFlow.type}",
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
+                style: TextStyle(fontSize: 18, color: Colors.grey[600]),
               ),
               Text(
                 formatDate(cashFlow.date),
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
+                style: TextStyle(fontSize: 18, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -69,10 +69,10 @@ class DetailCashFlowScreenAndroid extends StatelessWidget{
           ),
           Text(
             formatToIDR(cashFlow.amount),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.green,
+              color: cashFlow.type == "income" ? Colors.green : Colors.red,
             ),
           ),
           const SizedBox(height: 16),
