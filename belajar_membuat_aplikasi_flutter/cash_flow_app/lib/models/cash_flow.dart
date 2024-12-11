@@ -230,3 +230,8 @@ var cashFlowList = <CashFlow>[
 var cashFlowIncome = cashFlowList.where((cashFlow) => cashFlow.type == "income").toList();
 
 var cashFlowExpense = cashFlowList.where((cashFlow) => cashFlow.type == "expense").toList();
+
+var totalIncome = cashFlowIncome.fold(0, (sum, cashFlow) => sum + cashFlow.amount);
+
+var totalExpense = cashFlowExpense.fold(0, (sum, cashFlow) => sum + cashFlow.amount);
+

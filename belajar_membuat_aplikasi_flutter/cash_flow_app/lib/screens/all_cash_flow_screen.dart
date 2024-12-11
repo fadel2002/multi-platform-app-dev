@@ -15,10 +15,10 @@ class AllCashFlowScreen extends StatelessWidget {
       appBar: buildAppBar("All Cash Flow"),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth <= 600) {
-            return const AllCashFlowScreenAndroid();
+          if (constraints.maxWidth <= 1200) {
+            return const AllCashFlowScreenBase(screenType: ScreenType.ANDROID);
           } else {
-            return const AllCashFlowScreenWeb(gridCount: 4);
+            return const AllCashFlowScreenBase(screenType: ScreenType.WEB);
           }
         },
       ),
@@ -26,14 +26,16 @@ class AllCashFlowScreen extends StatelessWidget {
   }
 }
 
-class AllCashFlowScreenAndroid extends StatefulWidget {
-  const AllCashFlowScreenAndroid({super.key});
+class AllCashFlowScreenBase extends StatefulWidget {
+  final ScreenType screenType;
+
+  const AllCashFlowScreenBase({super.key, required this.screenType});
 
   @override
-  State<AllCashFlowScreenAndroid> createState() => _AllCashFlowScreenAndroidState();
+  State<AllCashFlowScreenBase> createState() => _AllCashFlowScreenBaseState();
 }
 
-class _AllCashFlowScreenAndroidState extends State<AllCashFlowScreenAndroid> {
+class _AllCashFlowScreenBaseState extends State<AllCashFlowScreenBase> {
   String _selectedType = "All";
 
   @override
@@ -87,6 +89,7 @@ class _AllCashFlowScreenAndroidState extends State<AllCashFlowScreenAndroid> {
             margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 2.0),
             child: CashFlowList(
               cashFlowList: _filterCashFlowList(_selectedType),
+              screenType: widget.screenType,
             ),
           ),
         ),
@@ -106,64 +109,144 @@ class _AllCashFlowScreenAndroidState extends State<AllCashFlowScreenAndroid> {
 
 class CashFlowList extends StatelessWidget {
   final List<CashFlow> cashFlowList;
+  final ScreenType screenType;
 
-  const CashFlowList({super.key, required this.cashFlowList});
+  const CashFlowList({super.key, required this.cashFlowList, required this.screenType});
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: cashFlowList.length,
-      itemBuilder: (context, index){
-        final CashFlow cashFlow = cashFlowList[index];
-        return InkWell(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return DetailCashFlowScreen(cashFlow: cashFlow);
-            }));
-          },
-          child: Card(
-            shape: const RoundedRectangleBorder(),
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(cashFlow.shortDescription),
+    if (screenType == ScreenType.ANDROID) {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: cashFlowList.length,
+        itemBuilder: (context, index){
+          final CashFlow cashFlow = cashFlowList[index];
+          return InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => DetailCashFlowScreen(cashFlow: cashFlow)
+              ));
+            },
+            child: Card(
+              shape: const RoundedRectangleBorder(),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(cashFlow.shortDescription),
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      const SizedBox(height: 5),
-                      Text(formatToIDR(cashFlow.amount).toString()),
-                      const SizedBox(height: 5),
-                      Text(formatDate(cashFlow.date)),
-                      const SizedBox(height: 5),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const SizedBox(height: 5),
+                        Text(formatToIDR(cashFlow.amount).toString()),
+                        const SizedBox(height: 5),
+                        Text(formatDate(cashFlow.date)),
+                        const SizedBox(height: 5),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    } else {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: (cashFlowList.length / 2).ceil(),
+        itemBuilder: (context, index){
+          final firstItem = cashFlowList[index * 2];
+          final secondItem = (index * 2 + 1) < cashFlowList.length ? cashFlowList[index * 2 + 1] : null;
+          return Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => DetailCashFlowScreen(cashFlow: firstItem)
+                    ));
+                  },
+                  child: Card(
+                    shape: const RoundedRectangleBorder(),
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(firstItem.shortDescription),
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const SizedBox(height: 5),
+                              Text(formatToIDR(firstItem.amount).toString()),
+                              const SizedBox(height: 5),
+                              Text(formatDate(firstItem.date)),
+                              const SizedBox(height: 5),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ),
+              secondItem != null ? Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => DetailCashFlowScreen(cashFlow: secondItem)
+                    ));
+                  },
+                  child: Card(
+                    shape: const RoundedRectangleBorder(),
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(secondItem.shortDescription),
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const SizedBox(height: 5),
+                              Text(formatToIDR(secondItem.amount).toString()),
+                              const SizedBox(height: 5),
+                              Text(formatDate(secondItem.date)),
+                              const SizedBox(height: 5),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ) : const Expanded(child: SizedBox()),
+            ],
+          );
+        },
+      );
+    }
   }
 }
-
-class AllCashFlowScreenWeb extends StatelessWidget{
-  final int gridCount;
-
-  const AllCashFlowScreenWeb({super.key, required this.gridCount});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
-  }
-}
-

@@ -16,7 +16,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth <= 600) {
+        if (constraints.maxWidth <= 820) {
           return Scaffold(
             appBar: buildAppBar("Cash Flow App"),
             body: const SingleChildScrollView(
@@ -24,17 +24,30 @@ class MainScreen extends StatelessWidget {
             ),
             drawer: buildDrawerItems(context),
           );
+        } else if (constraints.maxWidth <= 1200)  {
+          return Scaffold(
+            appBar: buildAppBar("Cash Flow App"),
+            body: const SingleChildScrollView(
+              child: MainScreenWeb(),
+            ),
+            drawer: buildDrawerItems(context),
+          );
         } else {
           return Scaffold(
             appBar: buildAppBar("Cash Flow App"),
             body: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   width: 250,
                   color: Colors.blue[800],
                   child: buildDrawerItems(context),
                 ),
-                const MainScreenWeb(gridCount: 4),
+                const Expanded(
+                  child: SingleChildScrollView(
+                    child: MainScreenWeb(),
+                  ),
+                ),
               ],
             ),
           );
@@ -132,11 +145,32 @@ class MainScreenAndroid extends StatelessWidget {
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Text(
-            "Recent Income",
-            style: TextStyle(fontSize: 20),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.black,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(6)
+          ),
+          margin: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Recent Income",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Container(
+                height:1.0,
+                color: Colors.black,
+              ),
+              CashFlowList(cashFlowList: sortRecent(cashFlowIncome)),
+            ],
           ),
         ),
         Container(
@@ -148,27 +182,24 @@ class MainScreenAndroid extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(6)
           ),
-          margin: const EdgeInsets.all(8.0),
-          child: CashFlowList(cashFlowList: sortRecent(cashFlowIncome)),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Text(
-            "Recent Expense",
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.black,
-                width: 1.0,
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Recent Expense",
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-              borderRadius: BorderRadius.circular(6)
+              Container(
+                height:1.0,
+                color: Colors.black,
+              ),
+              CashFlowList(cashFlowList: sortRecent(cashFlowExpense)),
+            ],
           ),
-          margin: const EdgeInsets.all(8.0),
-          child: CashFlowList(cashFlowList: sortRecent(cashFlowExpense)),
         ),
       ],
     );
@@ -189,9 +220,9 @@ class CashFlowList extends StatelessWidget {
         final CashFlow cashFlow = cashFlowList[index];
         return InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return DetailCashFlowScreen(cashFlow: cashFlow);
-            }));
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => DetailCashFlowScreen(cashFlow: cashFlow)
+            ));
           },
           child: Card(
             shape: const RoundedRectangleBorder(),
@@ -229,12 +260,167 @@ class CashFlowList extends StatelessWidget {
 }
 
 class MainScreenWeb extends StatelessWidget {
-  final int gridCount;
-
-  const MainScreenWeb({super.key, required this.gridCount});
+  const MainScreenWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(6)
+                  ),
+                  margin: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Recent Income",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                      Container(
+                        height:1.0,
+                        color: Colors.black,
+                      ),
+                      CashFlowList(cashFlowList: sortRecent(cashFlowIncome)),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(6)
+                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Recent Expense",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                      Container(
+                        height:1.0,
+                        color: Colors.black,
+                      ),
+                      CashFlowList(cashFlowList: sortRecent(cashFlowExpense)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+        ),
+        Expanded(
+            flex: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(6)
+              ),
+              margin: const EdgeInsets.only(right: 8.0, top: 8.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Center(
+                child: Column(
+                  children: [
+                    const Center(
+                      child: Text(
+                        "All Summary",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:const EdgeInsets.symmetric(vertical: 10),
+                      child: Container(
+                        height:1.0,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Balance"),
+                            Text(formatToIDR(totalIncome - totalExpense)),
+                          ],
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 8.0)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Income"),
+                            Text(formatToIDR(totalIncome)),
+                          ],
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 8.0)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Expense"),
+                            Text(formatToIDR(totalExpense)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => const AllCashFlowScreen()
+                          ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 32.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text(
+                          'Show All Cash Flow',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+        ),
+      ],
+    );
   }
 }

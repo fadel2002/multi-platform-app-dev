@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../screens/all_cash_flow_screen.dart';
 import '../screens/setting_screen.dart';
-import '../utils/utils.dart';
 
 Drawer buildDrawerItems(BuildContext context) {
   return Drawer(
@@ -10,15 +9,18 @@ Drawer buildDrawerItems(BuildContext context) {
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
-        DrawerHeader(
+        const DrawerHeader(
           decoration: BoxDecoration(
-            color: Colors.blue[800],
+            color: Colors.blue,
           ),
-          child: const Text(
-            "Menu",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              "Menu",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
             ),
           ),
         ),
@@ -26,14 +28,18 @@ Drawer buildDrawerItems(BuildContext context) {
           leading: const Icon(Icons.list),
           title: const Text("All Cash Flow"),
           onTap: () {
-            navigateAndCloseDrawer(context, const AllCashFlowScreen());
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => const AllCashFlowScreen()
+            ));
           },
         ),
         ListTile(
           leading: const Icon(Icons.settings),
           title: const Text("Settings"),
           onTap: () {
-            navigateAndCloseDrawer(context, const SettingScreen());
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => const SettingScreen()
+            ));
           },
         ),
       ],
