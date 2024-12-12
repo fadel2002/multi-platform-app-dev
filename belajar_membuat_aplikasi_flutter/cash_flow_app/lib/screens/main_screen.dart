@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:cash_flow_app/screens/all_cash_flow_screen.dart';
 import 'package:cash_flow_app/components/build_app_bar.dart';
-import 'package:cash_flow_app/screens/detail_cash_flow_screen.dart';
 import 'package:cash_flow_app/models/cash_flow.dart';
+import 'package:cash_flow_app/screens/all_cash_flow_screen.dart';
+import 'package:cash_flow_app/screens/detail_cash_flow_screen.dart';
 import 'package:cash_flow_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../components/build_app_bar.dart';
 import '../components/build_dropdown_items.dart';
-import '../screens/detail_cash_flow_screen.dart';
 import '../models/cash_flow.dart';
+import '../screens/detail_cash_flow_screen.dart';
 
 class AllCashFlowScreen extends StatelessWidget {
   const AllCashFlowScreen({super.key});
