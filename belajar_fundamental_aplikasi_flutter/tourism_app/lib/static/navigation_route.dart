@@ -1,5 +1,5 @@
 enum NavigationRoute {
-  homeRoute("/home"),
+  mainRoute("/"),
   detailRoute("/detail");
 
   const NavigationRoute(this.name);
