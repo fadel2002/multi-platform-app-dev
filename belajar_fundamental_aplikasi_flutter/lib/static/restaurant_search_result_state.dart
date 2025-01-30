@@ -1,0 +1,19 @@
+import 'package:belajar_fundamental_aplikasi_flutter/data/model/restaurant.dart';
+
+sealed class RestaurantSearchResultState {}
+
+class RestaurantSearchNoneState extends RestaurantSearchResultState {}
+
+class RestaurantSearchLoadingState extends RestaurantSearchResultState {}
+
+class RestaurantSearchErrorState extends RestaurantSearchResultState {
+  final String error;
+
+  RestaurantSearchErrorState(this.error);
+}
+
+class RestaurantSearchLoadedState extends RestaurantSearchResultState {
+  final Restaurant data;
+
+  RestaurantSearchLoadedState(this.data);
+}
