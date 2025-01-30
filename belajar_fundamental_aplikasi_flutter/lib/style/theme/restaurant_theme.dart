@@ -46,11 +46,10 @@ class RestaurantTheme {
   static AppBarTheme get _appBarTheme {
     return AppBarTheme(
       toolbarTextStyle: _textTheme.titleLarge,
-      shape: const BeveledRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(14),
-          bottomRight: Radius.circular(14),
-        ),
+            bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)
+        )
       ),
     );
   }

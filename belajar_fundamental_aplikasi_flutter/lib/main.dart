@@ -1,4 +1,6 @@
 import 'package:belajar_fundamental_aplikasi_flutter/data/api/api_service.dart';
+import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/favorite_list_provider.dart';
+import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/restaurant_detail_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/main/index_nav_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_list_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_search_provider.dart';
@@ -29,22 +31,14 @@ void main() {
             context.read<ApiServices>(),
           ),
         ),
-        // ChangeNotifierProvider(
-        //   create: (context) => BookmarkListProvider(),
-        // ),
-        // Provider(
-        //   create: (context) => ApiServices(),
-        // ),
-        // ChangeNotifierProvider(
-        //   create: (context) => TourismListProvider(
-        //     context.read<ApiServices>(),
-        //   ),
-        // ),
-        // ChangeNotifierProvider(
-        //   create: (context) => TourismDetailProvider(
-        //     context.read<ApiServices>(),
-        //   ),
-        // ),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteListProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RestaurantDetailProvider(
+            context.read<ApiServices>(),
+          ),
+        ),
       ],
       child: const MyApp(),
     ),

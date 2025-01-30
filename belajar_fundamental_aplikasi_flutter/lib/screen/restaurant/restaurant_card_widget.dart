@@ -15,6 +15,8 @@ class RestaurantCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int fullStars = restaurant.rating.floor();
+    double partialStar = restaurant.rating - fullStars;
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -46,16 +48,43 @@ class RestaurantCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
+                spacing: 6,
                 children: [
                   Text(
                     restaurant.name,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const SizedBox.square(dimension: 6),
                   Row(
+                    spacing: 4,
                     children: [
-                      const Icon(Icons.pin_drop),
-                      const SizedBox.square(dimension: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(5, (index) {
+                          if (index < fullStars) {
+                            return Icon(Icons.star, color: Theme.of(context).colorScheme.primary);
+                          } else if (index == fullStars) {
+                            if (partialStar > 0) {
+                              return Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Icon(Icons.star_border, color: Theme.of(context).colorScheme.primary),
+                                  ClipRect(
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      widthFactor: ((partialStar/10)*4) + 0.3,
+                                      child: Icon(Icons.star, color: Theme.of(context).colorScheme.primary),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Icon(Icons.star_border, color: Theme.of(context).colorScheme.primary);
+                            }
+                          } else {
+                            return Icon(Icons.star_border, color: Theme.of(context).colorScheme.primary);
+                          }
+                        }),
+                      ),
                       Expanded(
                         child: Text(
                           restaurant.city,
@@ -66,14 +95,13 @@ class RestaurantCardWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox.square(dimension: 6),
                   Row(
+                    spacing: 4,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.favorite,
-                        color: Colors.blue,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
-                      const SizedBox.square(dimension: 4),
                       Expanded(
                         child: Text(
                           restaurant.rating.toString(),

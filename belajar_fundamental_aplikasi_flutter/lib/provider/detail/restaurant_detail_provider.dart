@@ -12,12 +12,12 @@ class RestaurantDetailProvider extends ChangeNotifier {
 
   RestaurantDetailResultState get resultState => _resultState;
 
-  Future<void> fetchRestaurantDetail() async {
+  Future<void> fetchRestaurantDetail(String restaurantId) async {
     try {
       _resultState = RestaurantDetailLoadingState();
       notifyListeners();
 
-      final result = await _apiServices.getRestaurantDetail();
+      final result = await _apiServices.getRestaurantDetail(restaurantId);
 
       if (result.error) {
         _resultState = RestaurantDetailErrorState(result.message);

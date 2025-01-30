@@ -40,7 +40,6 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
               itemCount: restaurantList.length,
               itemBuilder: (context, index) {
                 final restaurant = restaurantList[index];
-
                 return RestaurantCardWidget(
                   restaurant: restaurant,
                   onTap: () {
