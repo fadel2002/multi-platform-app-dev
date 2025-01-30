@@ -1,6 +1,7 @@
 import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_list_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/screen/restaurant/restaurant_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import '../../static/navigation_route.dart';
@@ -14,6 +15,15 @@ class RestaurantScreen extends StatefulWidget {
 }
 
 class _RestaurantScreenState extends State<RestaurantScreen> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      context
+          .read<RestaurantListProvider>()
+          .fetchRestaurantList();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

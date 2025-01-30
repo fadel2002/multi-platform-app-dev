@@ -13,7 +13,7 @@ class RestaurantSearchErrorState extends RestaurantSearchResultState {
 }
 
 class RestaurantSearchLoadedState extends RestaurantSearchResultState {
-  final Restaurant data;
+  final List<Restaurant> data;
 
   RestaurantSearchLoadedState(this.data);
 }

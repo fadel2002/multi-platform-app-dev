@@ -1,26 +1,26 @@
 class Restaurant {
-  String id;
-  String name;
-  String description;
-  String city;
-  String address;
-  String pictureId;
-  List<Category> categories;
-  Menus menus;
-  double rating;
-  List<CustomerReview> customerReviews;
+  final String id;
+  final String name;
+  final String description;
+  final String city;
+  final String? address;
+  final String pictureId;
+  final List<Category>? categories;
+  final Menus? menus;
+  final double rating;
+  final List<CustomerReview>? customerReviews;
 
   Restaurant({
     required this.id,
     required this.name,
     required this.description,
     required this.city,
-    required this.address,
+    this.address,
     required this.pictureId,
-    required this.categories,
-    required this.menus,
+    this.categories,
+    this.menus,
     required this.rating,
-    required this.customerReviews,
+    this.customerReviews,
   });
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
@@ -30,10 +30,16 @@ class Restaurant {
     city: json["city"],
     address: json["address"],
     pictureId: json["pictureId"],
-    categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
-    menus: Menus.fromJson(json["menus"]),
+    categories: json["categories"] != null
+        ? List<Category>.from(json["categories"].map((x) => Category.fromJson(x)))
+        : null,
+    menus: json["menus"] != null
+        ? Menus.fromJson(json["menus"])
+        : null,
     rating: json["rating"]?.toDouble(),
-    customerReviews: List<CustomerReview>.from(json["customerReviews"].map((x) => CustomerReview.fromJson(x))),
+    customerReviews: json["customerReviews"] != null
+        ? List<CustomerReview>.from(json["customerReviews"].map((x) => CustomerReview.fromJson(x)))
+        : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -43,10 +49,10 @@ class Restaurant {
     "city": city,
     "address": address,
     "pictureId": pictureId,
-    "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-    "menus": menus.toJson(),
+    "categories": categories?.map((x) => x.toJson()).toList(),
+    "menus": menus?.toJson(),
     "rating": rating,
-    "customerReviews": List<dynamic>.from(customerReviews.map((x) => x.toJson())),
+    "customerReviews": customerReviews?.map((x) => x.toJson()).toList(),
   };
 }
 

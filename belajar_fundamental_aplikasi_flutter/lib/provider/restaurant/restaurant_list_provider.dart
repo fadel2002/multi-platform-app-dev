@@ -12,7 +12,7 @@ class RestaurantListProvider extends ChangeNotifier {
 
   RestaurantListResultState get resultState => _resultState;
 
-  Future<void> fetchRestaurantSearch() async {
+  Future<void> fetchRestaurantList() async {
     try {
       _resultState = RestaurantListLoadingState();
       notifyListeners();
@@ -22,7 +22,7 @@ class RestaurantListProvider extends ChangeNotifier {
       if (result.error) {
         _resultState = RestaurantListErrorState(result.message);
       } else {
-        _resultState = RestaurantListLoadedState(result.res);
+        _resultState = RestaurantListLoadedState(result.restaurants);
       }
       notifyListeners();
     } on Exception catch (e) {

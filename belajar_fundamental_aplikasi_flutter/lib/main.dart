@@ -2,6 +2,7 @@ import 'package:belajar_fundamental_aplikasi_flutter/data/api/api_service.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/main/index_nav_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_list_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_search_provider.dart';
+import 'package:belajar_fundamental_aplikasi_flutter/screen/detail/restaurant_detail_screen.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/screen/main/main_screen.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/static/navigation_route.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/style/theme/restaurant_theme.dart';
@@ -14,6 +15,9 @@ void main() {
       providers: [
         ChangeNotifierProvider(
           create: (context) => IndexNavProvider(),
+        ),
+        Provider(
+          create: (context) => ApiServices(),
         ),
         ChangeNotifierProvider(
           create: (context) => RestaurantSearchProvider(
@@ -53,16 +57,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tourism App',
+      title: 'Restaurant App',
       theme: RestaurantTheme.lightTheme,
       darkTheme: RestaurantTheme.darkTheme,
       themeMode: ThemeMode.system,
       initialRoute: NavigationRoute.mainRoute.name,
       routes: {
         NavigationRoute.mainRoute.name: (context) => const MainScreen(),
-        // NavigationRoute.detailRoute.name: (context) => DetailScreen(
-        //   tourismId: ModalRoute.of(context)?.settings.arguments as int,
-        // ),
+        NavigationRoute.detailRoute.name: (context) => RestaurantDetailScreen(
+          restaurantId: ModalRoute.of(context)?.settings.arguments as String,
+        ),
       },
     );
   }

@@ -7,25 +7,31 @@ RestaurantListResponse restaurantListResponseFromJson(String str) => RestaurantL
 String restaurantListResponseToJson(RestaurantListResponse data) => json.encode(data.toJson());
 
 class RestaurantListResponse {
-  bool error;
-  String message;
-  Restaurant restaurant;
+  final bool error;
+  final String message;
+  final int count;
+  final List<Restaurant> restaurants;
 
   RestaurantListResponse({
     required this.error,
     required this.message,
-    required this.restaurant,
+    required this.count,
+    required this.restaurants,
   });
 
   factory RestaurantListResponse.fromJson(Map<String, dynamic> json) => RestaurantListResponse(
     error: json["error"],
     message: json["message"],
-    restaurant: Restaurant.fromJson(json["restaurant"]),
+    count: json["count"],
+    restaurants: json["restaurants"] != null
+      ? List<Restaurant>.from(json["restaurants"].map((x) => Restaurant.fromJson(x)))
+      : <Restaurant>[],
   );
 
   Map<String, dynamic> toJson() => {
     "error": error,
     "message": message,
-    "restaurant": restaurant.toJson(),
+    "count": count,
+    "restaurants": List<dynamic>.from(restaurants.map((x) => x.toJson())),
   };
 }

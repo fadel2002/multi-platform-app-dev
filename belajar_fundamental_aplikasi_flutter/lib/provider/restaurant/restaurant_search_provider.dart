@@ -12,17 +12,17 @@ class RestaurantSearchProvider extends ChangeNotifier {
 
   RestaurantSearchResultState get resultState => _resultState;
 
-  Future<void> fetchRestaurantSearch() async {
+  Future<void> fetchRestaurantSearch(String query) async {
     try {
       _resultState = RestaurantSearchLoadingState();
       notifyListeners();
 
-      final result = await _apiServices.getRestaurantList();
+      final result = await _apiServices.getRestaurantSearch(query);
 
       if (result.error) {
         _resultState = RestaurantSearchErrorState(result.message);
       } else {
-        _resultState = RestaurantSearchLoadedState(result.restaurant);
+        _resultState = RestaurantSearchLoadedState(result.restaurants);
       }
       notifyListeners();
     } on Exception catch (e) {
