@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/model/restaurant.dart';
+import '../../utils/enums.dart';
 import '../../utils/image_helper.dart';
 
 class RestaurantCardWidget extends StatelessWidget {
@@ -38,7 +39,7 @@ class RestaurantCardWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Hero(
-                  tag: 'hero-image',
+                  tag: 'hero-image-${restaurant.id}',
                   child: Image.network(
                     ImageHelper.getImageUrl(restaurant.pictureId, ImageSize.small),
                     fit: BoxFit.cover,

@@ -1,4 +1,4 @@
-enum ImageSize { small, medium, large }
+import 'enums.dart';
 
 class ImageHelper {
   static const String _baseUrl = "https://restaurant-api.dicoding.dev/images";

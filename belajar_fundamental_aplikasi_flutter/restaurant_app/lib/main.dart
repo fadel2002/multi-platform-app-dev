@@ -1,15 +1,17 @@
-import 'package:belajar_fundamental_aplikasi_flutter/data/api/api_service.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/favorite_list_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/restaurant_detail_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/provider/main/index_nav_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_list_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_search_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/screen/detail/restaurant_detail_screen.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/screen/main/main_screen.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/static/navigation_route.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/style/theme/restaurant_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'data/api/api_service.dart';
+import 'provider/detail/favorite_list_provider.dart';
+import 'provider/detail/restaurant_detail_provider.dart';
+import 'provider/main/index_nav_provider.dart';
+import 'provider/restaurant/restaurant_list_provider.dart';
+import 'provider/restaurant/restaurant_search_provider.dart';
+import 'screen/detail/restaurant_detail_screen.dart';
+import 'screen/main/main_screen.dart';
+import 'static/navigation_route.dart';
+import 'style/theme/restaurant_theme.dart';
+import 'provider/connection/connectivity_provider.dart';
 
 void main() {
   runApp(
@@ -22,6 +24,9 @@ void main() {
           create: (context) => ApiServices(),
         ),
         ChangeNotifierProvider(
+            create: (_) => ConnectivityProvider()
+        ),
+        ChangeNotifierProvider(
           create: (context) => RestaurantSearchProvider(
             context.read<ApiServices>(),
           ),
@@ -29,6 +34,7 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => RestaurantListProvider(
             context.read<ApiServices>(),
+            context.read<ConnectivityProvider>()
           ),
         ),
         ChangeNotifierProvider(

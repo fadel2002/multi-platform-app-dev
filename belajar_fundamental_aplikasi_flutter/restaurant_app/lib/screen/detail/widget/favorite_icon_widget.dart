@@ -23,7 +23,7 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     final favoriteIconProvider = context.read<FavoriteIconProvider>();
 
     Future.microtask(() {
-      final favoriteInList = favoriteListProvider.checkItemBookmark(widget.restaurant);
+      final favoriteInList = favoriteListProvider.checkItemFavorite(widget.restaurant);
       favoriteIconProvider.isFavorite  = favoriteInList;
     });
 
@@ -38,15 +38,16 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
         final isFavorite = favoriteIconProvider.isFavorite;
 
         if (!isFavorite) {
-          favoriteListProvider.addBookmark(widget.restaurant);
+          favoriteListProvider.addFavorite(widget.restaurant);
         } else {
-          favoriteListProvider.removeBookmark(widget.restaurant);
+          favoriteListProvider.removeFavorite(widget.restaurant);
         }
         favoriteIconProvider.isFavorite = !isFavorite;
       },
       icon: Icon(
+        size: 30,
         context.watch<FavoriteIconProvider>().isFavorite ?
-        Icons.bookmark : Icons.bookmark_outline,
+        Icons.favorite : Icons.favorite_outline,
         color: Theme.of(context).colorScheme.secondary,
       ),
     );

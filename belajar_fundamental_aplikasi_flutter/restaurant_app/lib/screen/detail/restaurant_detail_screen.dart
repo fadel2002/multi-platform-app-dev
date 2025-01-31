@@ -1,12 +1,10 @@
-import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/favorite_icon_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/restaurant_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import '../../static/restaurant_detail_state.dart';
-import 'favorite_icon_widget.dart';
-import 'restaurant_detail_screen_widget.dart';
+import 'widget/restaurant_detail_screen_widget.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
   final String restaurantId;

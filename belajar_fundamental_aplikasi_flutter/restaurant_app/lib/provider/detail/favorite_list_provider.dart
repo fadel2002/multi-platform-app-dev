@@ -5,19 +5,19 @@ import 'package:flutter/widgets.dart';
 class FavoriteListProvider extends ChangeNotifier {
   final List<Restaurant> _favoriteList = [];
 
-  List<Restaurant> get bookmarkList => _favoriteList;
+  List<Restaurant> get favoriteList => _favoriteList;
 
-  void addBookmark(Restaurant value) {
+  void addFavorite(Restaurant value) {
     _favoriteList.add(value);
     notifyListeners();
   }
 
-  void removeBookmark(Restaurant value) {
+  void removeFavorite(Restaurant value) {
     _favoriteList.removeWhere((element) => element.id == value.id);
     notifyListeners();
   }
 
-  bool checkItemBookmark(Restaurant value) {
+  bool checkItemFavorite(Restaurant value) {
     final tourismInList =
     _favoriteList.where((element) => element.id == value.id);
     return tourismInList.isNotEmpty;
