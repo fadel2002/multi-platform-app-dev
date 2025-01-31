@@ -25,6 +25,7 @@ class RestaurantCardWidget extends StatelessWidget {
           horizontal: 16,
         ),
         child: Row(
+          spacing: 8,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ConstrainedBox(
@@ -36,13 +37,15 @@ class RestaurantCardWidget extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  ImageHelper.getImageUrl(restaurant.pictureId, ImageSize.small),
-                  fit: BoxFit.cover,
+                child: Hero(
+                  tag: 'hero-image',
+                  child: Image.network(
+                    ImageHelper.getImageUrl(restaurant.pictureId, ImageSize.small),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            const SizedBox.square(dimension: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +90,7 @@ class RestaurantCardWidget extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          restaurant.city,
+                          restaurant.rating.toString(),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: Theme.of(context).textTheme.bodyMedium,
@@ -99,12 +102,12 @@ class RestaurantCardWidget extends StatelessWidget {
                     spacing: 4,
                     children: [
                       Icon(
-                        Icons.favorite,
+                        Icons.pin_drop,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       Expanded(
                         child: Text(
-                          restaurant.rating.toString(),
+                          restaurant.city,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
