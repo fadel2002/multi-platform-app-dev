@@ -1,9 +1,9 @@
-import 'package:belajar_fundamental_aplikasi_flutter/data/model/restaurant.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/favorite_icon_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/favorite_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/model/restaurant.dart';
+import '../../../provider/detail/favorite_icon_provider.dart';
+import '../../../provider/detail/favorite_list_provider.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
   final Restaurant restaurant;

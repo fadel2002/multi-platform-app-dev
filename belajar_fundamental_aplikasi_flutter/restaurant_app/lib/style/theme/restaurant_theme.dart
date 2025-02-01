@@ -1,6 +1,7 @@
-import 'package:belajar_fundamental_aplikasi_flutter/style/colors/restaurant_colors.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/style/typography/restaurant_text_styles.dart';
 import 'package:flutter/material.dart';
+
+import '../colors/restaurant_colors.dart';
+import '../typography/restaurant_text_styles.dart';
 
 class RestaurantTheme {
   static ThemeData get lightTheme {

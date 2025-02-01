@@ -1,8 +1,8 @@
-import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/restaurant_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
+import '../../provider/detail/restaurant_detail_provider.dart';
 import '../../static/restaurant_detail_state.dart';
 import '../../utils/enums.dart';
 import 'widget/restaurant_detail_screen_widget.dart';

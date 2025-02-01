@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'data/api/api_service.dart';
+import 'provider/connection/connectivity_provider.dart';
 import 'provider/detail/favorite_list_provider.dart';
 import 'provider/detail/restaurant_detail_provider.dart';
 import 'provider/main/index_nav_provider.dart';
 import 'provider/restaurant/restaurant_list_provider.dart';
 import 'provider/restaurant/restaurant_post_review_provider.dart';
 import 'provider/restaurant/restaurant_search_provider.dart';
-import 'provider/settings/SettingsProvider.dart';
+import 'provider/settings/settings_provider.dart';
 import 'screen/detail/restaurant_detail_screen.dart';
 import 'screen/main/main_screen.dart';
 import 'static/navigation_route.dart';
 import 'style/theme/restaurant_theme.dart';
-import 'provider/connection/connectivity_provider.dart';
 
 void main() {
   runApp(
@@ -69,11 +69,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<SettingsProvider>(context);
     return MaterialApp(
       title: 'Restaurant App',
       theme: RestaurantTheme.lightTheme,
       darkTheme: RestaurantTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: themeProvider.themeMode,
       initialRoute: NavigationRoute.mainRoute.name,
       routes: {
         NavigationRoute.mainRoute.name: (context) => const MainScreen(),

@@ -1,13 +1,10 @@
-import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_post_review_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/screen/detail/widget/restaurant_detail_footer_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../data/model/restaurant.dart';
-import '../../../provider/restaurant/restaurant_search_provider.dart';
 import '../../../utils/enums.dart';
 import '../../../utils/image_helper.dart';
 import 'restaurant_detail_body_widget.dart';
+import 'restaurant_detail_footer_widget.dart';
 import 'restaurant_detail_header_widget.dart';
 
 class RestaurantDetailScreenWidget extends StatelessWidget {

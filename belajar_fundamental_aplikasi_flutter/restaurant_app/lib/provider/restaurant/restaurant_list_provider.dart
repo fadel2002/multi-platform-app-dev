@@ -1,8 +1,8 @@
-import 'package:belajar_fundamental_aplikasi_flutter/utils/enums.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/api/api_service.dart';
 import '../../static/restaurant_list_result_state.dart';
+import '../../utils/enums.dart';
 import '../connection/connectivity_provider.dart';
 
 class RestaurantListProvider extends ChangeNotifier {

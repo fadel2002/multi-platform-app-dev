@@ -1,14 +1,14 @@
-import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_list_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/screen/restaurant/restaurant_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
+import '../../provider/restaurant/restaurant_list_provider.dart';
 import '../../provider/restaurant/restaurant_search_provider.dart';
 import '../../static/navigation_route.dart';
 import '../../static/restaurant_list_result_state.dart';
 import '../../static/restaurant_search_result_state.dart';
 import '../../utils/enums.dart';
+import 'restaurant_card_widget.dart';
 
 class RestaurantScreen extends StatefulWidget {
   const RestaurantScreen({super.key});

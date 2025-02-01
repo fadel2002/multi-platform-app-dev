@@ -1,11 +1,11 @@
-import 'package:belajar_fundamental_aplikasi_flutter/provider/settings/SettingsProvider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/screen/detail/widget/restaurant_review_list_widget.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/static/restaurant_post_review_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/model/restaurant.dart';
 import '../../../provider/restaurant/restaurant_post_review_provider.dart';
+import '../../../provider/settings/settings_provider.dart';
+import '../../../static/restaurant_post_review_state.dart';
+import 'restaurant_review_list_widget.dart';
 
 class RestaurantDetailFooterWidget extends StatefulWidget {
   final List<CustomerReview>? customerReviews;
@@ -27,12 +27,12 @@ class _RestaurantDetailFooterWidgetState extends State<RestaurantDetailFooterWid
     if (review.isNotEmpty) {
       postProvider.postRestaurantReview(widget.restaurantId, pref.username, review);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Review submitted successfully!")),
+        SnackBar(content: Text("Review submitted successfully!"), behavior: SnackBarBehavior.floating),
       );
       _reviewController.clear();
     }else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please fill the review field.")),
+        SnackBar(content: Text("Please fill the review field."), behavior: SnackBarBehavior.floating),
       );
     }
   }
@@ -85,7 +85,7 @@ class _RestaurantDetailFooterWidgetState extends State<RestaurantDetailFooterWid
               if (value.resultState is RestaurantPostReviewErrorState) {
                 final errorState = value.resultState as RestaurantPostReviewErrorState;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(errorState.error)),
+                  SnackBar(content: Text(errorState.error), behavior: SnackBarBehavior.floating),
                 );
               }
             });

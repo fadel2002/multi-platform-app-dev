@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/settings/SettingsProvider.dart';
+import '../../provider/settings/settings_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -18,42 +18,86 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (username.isNotEmpty) {
       postProvider.setUsername(username);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Username saved!")),
+        SnackBar(
+          content: Text("Username saved!"),
+          behavior: SnackBarBehavior.floating,
+        ),
       );
     }else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please fill the username field.")),
+        SnackBar(
+          content: Text("Please fill the username field."),
+          behavior: SnackBarBehavior.floating,
+        ),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       appBar: AppBar(title: Text("Settings")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          spacing: 16,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                labelText: "Username",
-                border: OutlineInputBorder(),
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 16,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Select Theme", style: Theme.of(context).textTheme.titleMedium),
+              RadioListTile<ThemeMode>(
+                title: Text("System Default"),
+                value: ThemeMode.system,
+                groupValue: themeProvider.themeMode,
+                onChanged: (ThemeMode? value) {
+                  if (value != null) {
+                    themeProvider.setTheme(value);
+                  }
+                },
               ),
-            ),
-            ElevatedButton(
-              onPressed: _onPress,
-              child: Text("Save"),
-            ),
-            Consumer<SettingsProvider>(
-              builder: (context, value, child) {
-                return Text("Current Username: ${value.username}");
-              },
-            ),
-          ],
+              RadioListTile<ThemeMode>(
+                title: Text("Dark Mode"),
+                value: ThemeMode.dark,
+                groupValue: themeProvider.themeMode,
+                onChanged: (ThemeMode? value) {
+                  if (value != null) {
+                    themeProvider.setTheme(value);
+                  }
+                },
+              ),
+              RadioListTile<ThemeMode>(
+                title: Text("Light Mode"),
+                value: ThemeMode.light,
+                groupValue: themeProvider.themeMode,
+                onChanged: (ThemeMode? value) {
+                  if (value != null) {
+                    themeProvider.setTheme(value);
+                  }
+                },
+              ),
+              Text("Change Username", style: Theme.of(context).textTheme.titleMedium),
+              Consumer<SettingsProvider>(
+                builder: (context, value, child) {
+                  return Text("Current Username: ${value.username}");
+                },
+              ),
+              TextField(
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  labelText: "Username",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: _onPress,
+                  child: Text("Save"),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

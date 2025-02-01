@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:belajar_fundamental_aplikasi_flutter/data/model/restaurant.dart';
+import 'restaurant.dart';
 
 RestaurantListResponse restaurantListResponseFromJson(String str) => RestaurantListResponse.fromJson(json.decode(str));
 

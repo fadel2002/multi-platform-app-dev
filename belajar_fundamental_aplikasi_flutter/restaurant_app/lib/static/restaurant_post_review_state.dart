@@ -1,4 +1,4 @@
-import 'package:belajar_fundamental_aplikasi_flutter/data/model/restaurant.dart';
+import '../data/model/restaurant.dart';
 
 sealed class RestaurantPostReviewResultState {}
 

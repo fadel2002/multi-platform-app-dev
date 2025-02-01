@@ -1,6 +1,6 @@
-import 'package:belajar_fundamental_aplikasi_flutter/data/model/restaurant.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../data/model/restaurant.dart';
 
 class FavoriteListProvider extends ChangeNotifier {
   final List<Restaurant> _favoriteList = [];
