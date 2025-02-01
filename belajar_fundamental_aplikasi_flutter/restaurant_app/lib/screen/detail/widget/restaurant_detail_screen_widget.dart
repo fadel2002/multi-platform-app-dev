@@ -1,9 +1,13 @@
-import 'package:belajar_fundamental_aplikasi_flutter/screen/detail/widget/restaurant_detail_body_widget.dart';
+import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_post_review_provider.dart';
+import 'package:belajar_fundamental_aplikasi_flutter/screen/detail/widget/restaurant_detail_footer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/model/restaurant.dart';
+import '../../../provider/restaurant/restaurant_search_provider.dart';
 import '../../../utils/enums.dart';
 import '../../../utils/image_helper.dart';
+import 'restaurant_detail_body_widget.dart';
 import 'restaurant_detail_header_widget.dart';
 
 class RestaurantDetailScreenWidget extends StatelessWidget {
@@ -56,67 +60,7 @@ class RestaurantDetailScreenWidget extends StatelessWidget {
                   children: [
                     RestaurantDetailHeaderWidget(restaurant: restaurant),
                     RestaurantDetailBodyWidget(restaurant: restaurant),
-                    ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true, // Ensures the list takes only the space it needs
-                      physics: NeverScrollableScrollPhysics(), // Prevents nested scrolling
-                      itemCount: restaurant.customerReviews?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        final review = restaurant.customerReviews?[index];
-                        return Card(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(
-                              spacing: 4,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  spacing: 12,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 6,
-                                          vertical: 6,
-                                        ),
-                                        child: Icon(
-                                          Icons.person,
-                                          color: Theme.of(context).colorScheme.secondary,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            review?.name ?? "",
-                                            style: Theme.of(context).textTheme.bodyMedium,
-                                          ),
-                                          Text(
-                                            review?.date ?? "",
-                                            style: Theme.of(context).textTheme.bodySmall,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  review?.review ?? "",
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    RestaurantDetailFooterWidget(customerReviews: restaurant.customerReviews, restaurantId: restaurant.id),
                   ],
                 ),
               ),

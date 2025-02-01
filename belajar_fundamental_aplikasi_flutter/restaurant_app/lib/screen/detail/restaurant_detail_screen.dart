@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import '../../static/restaurant_detail_state.dart';
+import '../../utils/enums.dart';
 import 'widget/restaurant_detail_screen_widget.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
@@ -43,6 +44,41 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
             _ => const SizedBox(),
           };
         },
+      ),
+    );
+  }
+}
+
+class ErrorDetailWidget extends StatelessWidget {
+  final String message;
+  final String restaurantId;
+
+  const ErrorDetailWidget({super.key, required this.message, required this.restaurantId});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        spacing: 10,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50),
+            child: Text(
+              message == ErrorType.apiFetchError.name
+                  ? "Oops, something went wrong. Please try again later."
+                  : "No internet connection found. Please check your connection and try again.",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.read<RestaurantDetailProvider>().fetchRestaurantDetail(restaurantId);
+            },
+            child: const Text("Retry"),
+          ),
+        ],
       ),
     );
   }

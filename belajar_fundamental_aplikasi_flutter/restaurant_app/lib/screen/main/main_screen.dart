@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../provider/main/index_nav_provider.dart';
 import '../restaurant/restaurant_screen.dart';
-import '../setting/setting_screen.dart';
+import '../settings/settings_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});

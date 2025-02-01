@@ -17,7 +17,7 @@ class RestaurantListProvider extends ChangeNotifier {
 
   Future<void> fetchRestaurantList() async {
     if (!_connectivityProvider.hasInternetConnection) {
-      _resultState = RestaurantListErrorState(Error.noInternetConnection.name);
+      _resultState = RestaurantListErrorState(ErrorType.noInternetConnection.name);
       notifyListeners();
       return;
     }
@@ -29,7 +29,7 @@ class RestaurantListProvider extends ChangeNotifier {
       final result = await _apiServices.getRestaurantList();
 
       if (result.error) {
-        _resultState = RestaurantListErrorState(Error.apiFetchError.name);
+        _resultState = RestaurantListErrorState(ErrorType.apiFetchError.name);
       } else {
         _resultState = RestaurantListLoadedState(result.restaurants);
       }

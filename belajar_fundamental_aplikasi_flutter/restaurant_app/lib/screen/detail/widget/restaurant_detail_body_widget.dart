@@ -100,10 +100,6 @@ class RestaurantDetailBodyWidget extends StatelessWidget {
           height: 2, // Height of the line
           thickness: 1, // Thickness of the line
         ),
-        Text(
-          "Reviews",
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
       ],
     );
   }

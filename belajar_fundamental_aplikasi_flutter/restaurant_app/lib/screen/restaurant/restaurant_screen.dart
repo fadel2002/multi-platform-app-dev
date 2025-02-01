@@ -143,7 +143,7 @@ class ErrorListWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 50),
             child: Text(
-              message == Error.noInternetConnection.name
+              message == ErrorType.apiFetchError.name
                   ? "Oops, something went wrong. Please try again later."
                   : "No internet connection found. Please check your connection and try again.",
               textAlign: TextAlign.center,
@@ -152,7 +152,7 @@ class ErrorListWidget extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context.read<RestaurantListProvider>().fetchRestaurantList(); // Retry fetching
+              context.read<RestaurantListProvider>().fetchRestaurantList();
             },
             child: const Text("Retry"),
           ),
@@ -178,7 +178,7 @@ class ErrorSearchWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 50),
             child: Text(
-              message == Error.noInternetConnection.name
+              message == ErrorType.apiFetchError.name
                   ? "Oops, something went wrong. Please try again later."
                   : "No internet connection found. Please check your connection and try again.",
               textAlign: TextAlign.center,
@@ -187,9 +187,10 @@ class ErrorSearchWidget extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              if (query.isNotEmpty) {
-                context.read<RestaurantSearchProvider>().fetchRestaurantSearch(query);
-              }            },
+                if (query.isNotEmpty) {
+                  context.read<RestaurantSearchProvider>().fetchRestaurantSearch(query);
+                }
+              },
             child: const Text("Retry"),
           ),
         ],
