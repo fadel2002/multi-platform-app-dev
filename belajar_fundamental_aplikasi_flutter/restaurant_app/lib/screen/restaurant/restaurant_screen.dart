@@ -115,8 +115,9 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                         );
                       },
                     ),
-                  RestaurantListErrorState(error: var message) =>
-                      ErrorListWidget(message: message),
+                  RestaurantListErrorState(
+                    error: var message
+                  ) => ErrorListWidget(message: message),
                   _ => const SizedBox(),
                 };
               },

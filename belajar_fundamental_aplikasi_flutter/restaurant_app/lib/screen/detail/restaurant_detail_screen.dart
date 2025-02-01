@@ -38,9 +38,9 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
             ),
             RestaurantDetailLoadedState(data: var restaurant) =>
                 RestaurantDetailScreenWidget(restaurant: restaurant),
-            RestaurantDetailErrorState(error: var message) => Center(
-              child: Text(message),
-            ),
+            RestaurantDetailErrorState(
+              error: var message
+            ) => ErrorDetailWidget(message: message, restaurantId: widget.restaurantId),
             _ => const SizedBox(),
           };
         },
@@ -57,8 +57,9 @@ class ErrorDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
         spacing: 10,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -55,6 +55,7 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => RestaurantDetailProvider(
             context.read<ApiServices>(),
+            context.read<ConnectivityProvider>(),
           ),
         ),
       ],
