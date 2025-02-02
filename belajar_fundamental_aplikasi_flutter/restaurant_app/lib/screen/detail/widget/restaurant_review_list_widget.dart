@@ -10,8 +10,8 @@ class RestaurantReviewListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: EdgeInsets.zero,
-      shrinkWrap: true, // Ensures the list takes only the space it needs
-      physics: NeverScrollableScrollPhysics(), // Prevents nested scrolling
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: customerReviews?.length ?? 0,
       itemBuilder: (context, index) {
         final review = customerReviews?[(customerReviews?.length ?? 0)-1-index];

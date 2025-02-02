@@ -44,6 +44,13 @@ class _RestaurantDetailFooterWidgetState extends State<RestaurantDetailFooterWid
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final postProvider = context.read<RestaurantPostReviewProvider>();
+    postProvider.resetState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       spacing: 8,

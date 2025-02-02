@@ -17,6 +17,11 @@ class RestaurantPostReviewProvider extends ChangeNotifier {
   RestaurantPostReviewResultState get resultState => _resultState;
   bool get isLoading => _isLoading;
 
+  void resetState() {
+    _resultState = RestaurantPostReviewNoneState();
+    notifyListeners();
+  }
+
   Future<void> postRestaurantReview(String id, String name, String review) async {
     if (!_connectivityProvider.hasInternetConnection) {
       _resultState = RestaurantPostReviewErrorState(ErrorType.noInternetConnection.name);
