@@ -34,6 +34,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   @override
+  dispose(){
+    _usernameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(

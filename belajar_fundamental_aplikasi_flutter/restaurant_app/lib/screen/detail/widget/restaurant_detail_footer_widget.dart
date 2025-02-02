@@ -38,6 +38,12 @@ class _RestaurantDetailFooterWidgetState extends State<RestaurantDetailFooterWid
   }
 
   @override
+  dispose(){
+    _reviewController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       spacing: 8,

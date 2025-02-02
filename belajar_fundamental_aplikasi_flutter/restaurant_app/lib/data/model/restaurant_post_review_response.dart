@@ -7,9 +7,9 @@ RestaurantPostReviewResponse customerPostReviewResponseFromJson(String str) => R
 String customerPostReviewResponseToJson(RestaurantPostReviewResponse data) => json.encode(data.toJson());
 
 class RestaurantPostReviewResponse {
-  bool error;
-  String message;
-  List<CustomerReview> customerReviews;
+  final bool error;
+  final String message;
+  final List<CustomerReview> customerReviews;
 
   RestaurantPostReviewResponse({
     required this.error,

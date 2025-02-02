@@ -7,9 +7,9 @@ RestaurantDetailResponse restaurantDetailResponseFromJson(String str) => Restaur
 String restaurantDetailResponseToJson(RestaurantDetailResponse data) => json.encode(data.toJson());
 
 class RestaurantDetailResponse {
-  bool error;
-  String message;
-  Restaurant restaurant;
+  final bool error;
+  final String message;
+  final Restaurant restaurant;
 
   RestaurantDetailResponse({
     required this.error,
