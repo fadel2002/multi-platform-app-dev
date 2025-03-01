@@ -1,4 +1,8 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:provider/provider.dart';
 
 import 'package:belajar_fundamental_aplikasi_flutter/data/model/restaurant.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_list_provider.dart';
@@ -6,10 +10,6 @@ import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaur
 import 'package:belajar_fundamental_aplikasi_flutter/screen/restaurant/restaurant_screen.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/static/restaurant_list_result_state.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/utils/enums.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:provider/provider.dart';
 
 class MockRestaurantListProvider extends Mock implements RestaurantListProvider {}
 class MockRestaurantSearchProvider extends Mock implements RestaurantSearchProvider {}
