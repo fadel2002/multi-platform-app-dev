@@ -8,14 +8,17 @@ class SettingsProvider extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.system;
   String _username = "";
   String _message = "";
+  bool _isReminderEnabled = false;
 
   String get message => _message;
   String get username => _username;
   ThemeMode get themeMode => _themeMode;
+  bool get isReminderEnabled => _isReminderEnabled;
 
   SettingsProvider(this._service){
     getUsername();
     getTheme();
+    getReminderSetting();
   }
 
   Future<void> setUsername(String newUsername) async {
@@ -24,14 +27,9 @@ class SettingsProvider extends ChangeNotifier {
       _username = newUsername;
       _message = "Username saved!";
     } catch (e) {
-      _message = "Failed to save your username";
+      _message = "Failed to save username";
     }
     notifyListeners();
-
-    // _username = newUsername;
-    // notifyListeners();
-    // final prefs = await SharedPreferences.getInstance();
-    // await prefs.setString('username', newUsername);
   }
 
   void getUsername() {
@@ -39,12 +37,9 @@ class SettingsProvider extends ChangeNotifier {
       _username = _service.getUsername();
       _message = "Username successfully retrieved";
     } catch (e) {
-      _message = "Failed to get your username";
+      _message = "Failed to get username";
     }
     notifyListeners();
-    // final prefs = await SharedPreferences.getInstance();
-    // _username = prefs.getString('username') ?? "Guest";
-    // notifyListeners();
   }
 
   void getTheme() {
@@ -52,7 +47,7 @@ class SettingsProvider extends ChangeNotifier {
       _themeMode = Conversion.intToTheme(_service.getTheme());
       _message = "Theme successfully retrieved";
     } catch (e) {
-      _message = "Failed to get your Theme";
+      _message = "Failed to get theme setting";
     }
     notifyListeners();
   }
@@ -63,7 +58,27 @@ class SettingsProvider extends ChangeNotifier {
       _themeMode = newThemeMode;
       _message = "Theme saved!";
     } catch (e) {
-      _message = "Failed to save your theme";
+      _message = "Failed to save theme setting";
+    }
+    notifyListeners();
+  }
+
+  void getReminderSetting() {
+    try {
+      _isReminderEnabled = _service.getReminder();
+    } catch (e) {
+      _message = "Failed to get reminder setting";
+      _isReminderEnabled = false;
+    }
+    notifyListeners();
+  }
+
+  Future<void> setReminder(bool value) async {
+    try {
+      await _service.saveReminder(value);
+      _isReminderEnabled = value;
+    } catch (e) {
+      _message = "Failed to save reminder setting";
     }
     notifyListeners();
   }

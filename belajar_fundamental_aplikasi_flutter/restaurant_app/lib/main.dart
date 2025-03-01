@@ -1,3 +1,4 @@
+import 'package:belajar_fundamental_aplikasi_flutter/provider/notification/local_notification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +17,8 @@ import 'provider/settings/settings_provider.dart';
 import 'screen/detail/restaurant_detail_screen.dart';
 import 'screen/main/main_screen.dart';
 import 'data/local/shared_preferences_service.dart';
+import 'services/http_service.dart';
+import 'services/local_notification_service.dart';
 import 'static/navigation_route.dart';
 import 'style/theme/restaurant_theme.dart';
 
@@ -26,6 +29,16 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        Provider(
+          create: (context) => HttpService(),
+        ),
+        Provider(
+          create: (context) => LocalNotificationService(
+            context.read<HttpService>(),
+          )
+            ..init()
+            ..configureLocalTimeZone(),
+        ),
         ChangeNotifierProvider(
           create: (context) => IndexNavProvider(),
         ),
@@ -37,6 +50,11 @@ void main() async {
         ),
         ChangeNotifierProvider(
             create: (_) => ConnectivityProvider()
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LocalNotificationProvider(
+            context.read<LocalNotificationService>(),
+          ),
         ),
         ChangeNotifierProvider(
           create: (context) => SettingsProvider(

@@ -8,6 +8,7 @@ class SharedPreferencesService {
 
   static const String keyTheme = "MYTHEME";
   static const String keyUsername = "MYUSERNAME";
+  static const String keyReminder = "MYREMINDER";
 
   Future<void> saveTheme(int theme) async {
     try {
@@ -31,5 +32,17 @@ class SharedPreferencesService {
 
   String getUsername() {
     return _preferences.getString(keyUsername) ?? "Guest";
+  }
+
+  Future<void> saveReminder(bool value) async {
+    try {
+      await _preferences.setBool(keyReminder, value);
+    } catch (e) {
+      throw Exception("Shared preferences cannot save the setting value.");
+    }
+  }
+
+  bool getReminder() {
+    return _preferences.getBool(keyReminder) ?? false;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../provider/notification/local_notification_provider.dart';
 import '../../provider/settings/settings_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -33,6 +34,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  late SettingsProvider settingsProvider;
+  late LocalNotificationProvider notificationProvider;
+
   @override
   dispose(){
     _usernameController.dispose();
@@ -40,8 +44,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    settingsProvider = context.watch<SettingsProvider>();
+    notificationProvider = context.watch<LocalNotificationProvider>();
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final themeProvider = context.watch<SettingsProvider>();
     return Scaffold(
       appBar: AppBar(title: Text("Settings")),
       body: Padding(
@@ -55,35 +65,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
               RadioListTile<ThemeMode>(
                 title: Text("System Default"),
                 value: ThemeMode.system,
-                groupValue: themeProvider.themeMode,
+                groupValue: settingsProvider.themeMode,
                 onChanged: (ThemeMode? value) {
                   if (value != null) {
-                    themeProvider.setTheme(value);
+                    settingsProvider.setTheme(value);
                   }
                 },
               ),
               RadioListTile<ThemeMode>(
                 title: Text("Dark Mode"),
                 value: ThemeMode.dark,
-                groupValue: themeProvider.themeMode,
+                groupValue: settingsProvider.themeMode,
                 onChanged: (ThemeMode? value) {
                   if (value != null) {
-                    themeProvider.setTheme(value);
+                    settingsProvider.setTheme(value);
                   }
                 },
               ),
               RadioListTile<ThemeMode>(
                 title: Text("Light Mode"),
                 value: ThemeMode.light,
-                groupValue: themeProvider.themeMode,
+                groupValue: settingsProvider.themeMode,
                 onChanged: (ThemeMode? value) {
                   if (value != null) {
-                    themeProvider.setTheme(value);
+                    settingsProvider.setTheme(value);
                   }
                 },
               ),
+              Text("Daily Reminder", style: Theme.of(context).textTheme.titleMedium),
+              SwitchListTile(
+                title: const Text("Daily Reminder at 11:00 AM"),
+                value: settingsProvider.isReminderEnabled,
+                onChanged: (bool value) {
+                  settingsProvider.setReminder(value);
+                  notificationProvider.toggleDailyReminder(value);
+                },
+              ),
               Text("Change Username", style: Theme.of(context).textTheme.titleMedium),
-              Text("Current Username: ${themeProvider.username}"),
+              Text("Current Username: ${settingsProvider.username}"),
               TextField(
                 controller: _usernameController,
                 decoration: InputDecoration(
@@ -97,7 +116,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onPressed: _onPress,
                   child: Text("Save"),
                 ),
-              )
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: (){
+                    notificationProvider.checkPendingNotificationRequests().then((result) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(result),
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                    });
+
+                  },
+                  child: Text("CEK"),
+                ),
+              ),
             ],
           ),
         ),
