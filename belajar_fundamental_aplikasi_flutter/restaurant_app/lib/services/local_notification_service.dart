@@ -5,11 +5,7 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../data/model/received_notification.dart';
 import 'http_service.dart';
-
-final StreamController<ReceivedNotification> didReceiveLocalNotificationStream =
-StreamController<ReceivedNotification>.broadcast();
 
 final StreamController<String?> selectNotificationStream =
 StreamController<String?>.broadcast();
@@ -82,7 +78,7 @@ class LocalNotificationService {
       final requestNotificationsPermission = await _requestAndroidNotificationsPermission();
       final notificationEnabled = await _isAndroidPermissionGranted();
       final requestAlarmEnabled = await _requestExactAlarmsPermission();
-      return (requestNotificationsPermission) && notificationEnabled && requestAlarmEnabled;
+      return requestNotificationsPermission && notificationEnabled && requestAlarmEnabled;
     } else {
       return false;
     }
