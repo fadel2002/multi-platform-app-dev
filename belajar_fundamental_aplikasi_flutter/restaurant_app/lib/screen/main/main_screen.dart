@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/main/index_nav_provider.dart';
+import '../favorite/favorite_screen.dart';
 import '../restaurant/restaurant_screen.dart';
 import '../settings/settings_screen.dart';
 
@@ -14,7 +15,8 @@ class MainScreen extends StatelessWidget {
       body: Consumer<IndexNavProvider>(
         builder: (context, value, child) {
           return switch (value.indexBottomNavBar) {
-            1 => const SettingsScreen(),
+            2 => const SettingsScreen(),
+            1 => const FavoriteScreen(),
             _ => const RestaurantScreen(),
           };
         },
@@ -29,6 +31,11 @@ class MainScreen extends StatelessWidget {
             icon: Icon(Icons.restaurant),
             label: "Restaurant",
             tooltip: "Restaurant",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favorite",
+            tooltip: "Favorite",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

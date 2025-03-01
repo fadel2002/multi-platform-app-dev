@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/api/api_service.dart';
+import 'data/local/local_database_service.dart';
 import 'provider/connection/connectivity_provider.dart';
 import 'provider/detail/favorite_list_provider.dart';
 import 'provider/detail/restaurant_detail_provider.dart';
+import 'provider/favorite/local_database_provider.dart';
 import 'provider/main/index_nav_provider.dart';
 import 'provider/restaurant/restaurant_list_provider.dart';
 import 'provider/restaurant/restaurant_post_review_provider.dart';
@@ -12,24 +15,33 @@ import 'provider/restaurant/restaurant_search_provider.dart';
 import 'provider/settings/settings_provider.dart';
 import 'screen/detail/restaurant_detail_screen.dart';
 import 'screen/main/main_screen.dart';
+import 'data/local/shared_preferences_service.dart';
 import 'static/navigation_route.dart';
 import 'style/theme/restaurant_theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => IndexNavProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => SettingsProvider(),
+        Provider(
+          create: (context) => SharedPreferencesService(prefs),
         ),
         Provider(
           create: (context) => ApiServices(),
         ),
         ChangeNotifierProvider(
             create: (_) => ConnectivityProvider()
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SettingsProvider(
+            context.read<SharedPreferencesService>(),
+          ),
         ),
         ChangeNotifierProvider(
           create: (context) => RestaurantSearchProvider(
@@ -50,12 +62,17 @@ void main() {
           ),
         ),
         ChangeNotifierProvider(
-          create: (context) => FavoriteListProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (context) => RestaurantDetailProvider(
             context.read<ApiServices>(),
             context.read<ConnectivityProvider>(),
+          ),
+        ),
+        Provider(
+          create: (context) => LocalDatabaseService(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LocalDatabaseProvider(
+            context.read<LocalDatabaseService>(),
           ),
         ),
       ],
@@ -69,7 +86,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<SettingsProvider>(context);
+    final themeProvider = context.watch<SettingsProvider>();
+
     return MaterialApp(
       title: 'Restaurant App',
       theme: RestaurantTheme.lightTheme,

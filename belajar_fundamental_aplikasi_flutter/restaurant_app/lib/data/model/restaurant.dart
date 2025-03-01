@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Restaurant {
   final String id;
   final String name;
@@ -53,6 +55,24 @@ class Restaurant {
     "menus": menus?.toJson(),
     "rating": rating,
     "customerReviews": customerReviews?.map((x) => x.toJson()).toList(),
+  };
+
+  factory Restaurant.fromJsonLocalDb(Map<String, dynamic> json) => Restaurant(
+    id: json["id"],
+    name: json["name"],
+    description: json["description"],
+    city: json["city"],
+    pictureId: json["pictureId"],
+    rating: json["rating"]?.toDouble(),
+  );
+
+  Map<String, dynamic> toJsonLocalDb() => {
+    "id": id,
+    "name": name,
+    "description": description,
+    "city": city,
+    "pictureId": pictureId,
+    "rating": rating,
   };
 }
 

@@ -23,7 +23,6 @@ class _RestaurantDetailFooterWidgetState extends State<RestaurantDetailFooterWid
     String review = _reviewController.text.trim();
     final postProvider = context.read<RestaurantPostReviewProvider>();
     final pref = context.read<SettingsProvider>();
-    pref.loadUsername();
     if (review.isNotEmpty) {
       postProvider.postRestaurantReview(widget.restaurantId, pref.username, review);
       ScaffoldMessenger.of(context).showSnackBar(

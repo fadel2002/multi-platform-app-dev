@@ -41,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<SettingsProvider>(context);
+    final themeProvider = context.watch<SettingsProvider>();
     return Scaffold(
       appBar: AppBar(title: Text("Settings")),
       body: Padding(
@@ -83,11 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
               Text("Change Username", style: Theme.of(context).textTheme.titleMedium),
-              Consumer<SettingsProvider>(
-                builder: (context, value, child) {
-                  return Text("Current Username: ${value.username}");
-                },
-              ),
+              Text("Current Username: ${themeProvider.username}"),
               TextField(
                 controller: _usernameController,
                 decoration: InputDecoration(
