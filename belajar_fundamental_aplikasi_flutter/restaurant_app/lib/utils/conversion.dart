@@ -20,6 +20,30 @@ class Conversion {
       return ThemeMode.light;
     }
   }
+
+  static String timeFormat(int hour, int minute){
+    String time = "";
+    if (hour < 10) {
+      time += "0$hour";
+    } else {
+      time += "$hour";
+    }
+    if (minute < 10){
+      time += ":0$minute";
+    }else {
+      time += "$minute";
+    }
+    if (hour < 9){
+      time += " pagi";
+    }else if (hour < 15){
+      time += " siang";
+    }else if (hour < 19){
+      time += " sore";
+    }else {
+      time += " malam";
+    }
+    return time;
+  }
 }
 
 

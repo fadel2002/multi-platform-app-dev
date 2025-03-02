@@ -1,10 +1,10 @@
-import 'package:belajar_fundamental_aplikasi_flutter/provider/detail/favorite_list_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/provider/favorite/local_database_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/screen/restaurant/restaurant_card_widget.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/static/navigation_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../../provider/favorite/local_database_provider.dart';
+import '../../static/navigation_route.dart';
+import '../restaurant/restaurant_card_widget.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});

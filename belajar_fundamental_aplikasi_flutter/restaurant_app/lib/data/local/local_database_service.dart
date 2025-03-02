@@ -1,5 +1,6 @@
-import 'package:belajar_fundamental_aplikasi_flutter/data/model/restaurant.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../model/restaurant.dart';
 
 class  LocalDatabaseService {
   static const String _databaseName = 'restaurant-app.db';

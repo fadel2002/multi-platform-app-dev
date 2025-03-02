@@ -12,7 +12,6 @@ import 'package:belajar_fundamental_aplikasi_flutter/provider/main/index_nav_pro
 import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_list_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/restaurant/restaurant_search_provider.dart';
 import 'package:belajar_fundamental_aplikasi_flutter/provider/settings/settings_provider.dart';
-import 'package:belajar_fundamental_aplikasi_flutter/services/http_service.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -24,9 +23,6 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
-          Provider(
-            create: (context) => HttpService(),
-          ),
           ChangeNotifierProvider(
             create: (context) => IndexNavProvider(),
           ),

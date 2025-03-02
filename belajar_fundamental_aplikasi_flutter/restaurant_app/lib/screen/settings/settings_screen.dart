@@ -117,23 +117,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Text("Save"),
                 ),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: (){
-                    notificationProvider.checkPendingNotificationRequests().then((result) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(result),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
-                    });
-
-                  },
-                  child: Text("CEK"),
-                ),
-              ),
             ],
           ),
         ),

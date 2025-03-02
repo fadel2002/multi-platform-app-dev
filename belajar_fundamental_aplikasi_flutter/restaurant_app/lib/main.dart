@@ -1,4 +1,3 @@
-import 'package:belajar_fundamental_aplikasi_flutter/provider/notification/local_notification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,10 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'data/api/api_service.dart';
 import 'data/local/local_database_service.dart';
 import 'provider/connection/connectivity_provider.dart';
-import 'provider/detail/favorite_list_provider.dart';
 import 'provider/detail/restaurant_detail_provider.dart';
 import 'provider/favorite/local_database_provider.dart';
 import 'provider/main/index_nav_provider.dart';
+import 'provider/notification/local_notification_provider.dart';
 import 'provider/restaurant/restaurant_list_provider.dart';
 import 'provider/restaurant/restaurant_post_review_provider.dart';
 import 'provider/restaurant/restaurant_search_provider.dart';
@@ -17,7 +16,6 @@ import 'provider/settings/settings_provider.dart';
 import 'screen/detail/restaurant_detail_screen.dart';
 import 'screen/main/main_screen.dart';
 import 'data/local/shared_preferences_service.dart';
-import 'services/http_service.dart';
 import 'services/local_notification_service.dart';
 import 'static/navigation_route.dart';
 import 'style/theme/restaurant_theme.dart';
@@ -30,12 +28,7 @@ void main() async {
     MultiProvider(
       providers: [
         Provider(
-          create: (context) => HttpService(),
-        ),
-        Provider(
-          create: (context) => LocalNotificationService(
-            context.read<HttpService>(),
-          )
+          create: (context) => LocalNotificationService()
             ..init()
             ..configureLocalTimeZone(),
         ),

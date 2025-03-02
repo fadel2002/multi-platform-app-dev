@@ -45,7 +45,6 @@ class TourismCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // todo-10: change the text style too
                   Text(
                     tourism.name,
                     style: Theme.of(context).textTheme.titleMedium,

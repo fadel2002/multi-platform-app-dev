@@ -5,8 +5,6 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import 'http_service.dart';
-
 final StreamController<String?> selectNotificationStream =
 StreamController<String?>.broadcast();
 
@@ -14,9 +12,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
 
 class LocalNotificationService {
-  final HttpService httpService;
-
-  LocalNotificationService(this.httpService);
+  LocalNotificationService();
 
   Future<void> init() async {
     const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -139,41 +135,4 @@ class LocalNotificationService {
   Future<void> cancelNotification(int id) async {
     await flutterLocalNotificationsPlugin.cancel(id);
   }
-
-  Future<List<PendingNotificationRequest>> pendingNotificationRequests() async {
-    final List<PendingNotificationRequest> pendingNotificationRequests = await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-    return pendingNotificationRequests;
-  }
-
-  // Future<void> showNotification({
-  //   required int id,
-  //   required String title,
-  //   required String body,
-  //   required String payload,
-  //   String channelId = "1",
-  //   String channelName = "Simple Notification",
-  // }) async {
-  //   final androidPlatformChannelSpecifics = AndroidNotificationDetails(
-  //     channelId,
-  //     channelName,
-  //     importance: Importance.max,
-  //     priority: Priority.high,
-  //     sound: const RawResourceAndroidNotificationSound('slow_spring_board'),
-  //   );
-  //   const iOSPlatformChannelSpecifics = DarwinNotificationDetails(
-  //     sound: 'slow_spring_board.aiff',
-  //     presentSound: true,
-  //   );
-  //   final notificationDetails = NotificationDetails(
-  //     android: androidPlatformChannelSpecifics,
-  //     iOS: iOSPlatformChannelSpecifics,
-  //   );
-  //   await flutterLocalNotificationsPlugin.show(
-  //     id,
-  //     title,
-  //     body,
-  //     notificationDetails,
-  //     payload: payload,
-  //   );
-  // }
 }
