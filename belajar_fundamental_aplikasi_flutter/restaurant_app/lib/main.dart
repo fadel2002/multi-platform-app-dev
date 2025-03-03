@@ -84,6 +84,7 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => LocalDatabaseProvider(
             context.read<LocalDatabaseService>(),
+            context.read<ConnectivityProvider>(),
           ),
         ),
       ],

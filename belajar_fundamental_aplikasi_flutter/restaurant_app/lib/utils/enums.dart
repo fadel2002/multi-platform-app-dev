@@ -1,3 +1,3 @@
 enum ImageSize { small, medium, large }
 
-enum ErrorType { noInternetConnection, apiFetchError }
+enum ErrorType { noInternetConnection, apiFetchError, none }

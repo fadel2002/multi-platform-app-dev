@@ -45,8 +45,10 @@ class _RestaurantDetailFooterWidgetState extends State<RestaurantDetailFooterWid
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final postProvider = context.read<RestaurantPostReviewProvider>();
-    postProvider.resetState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final postProvider = context.read<RestaurantPostReviewProvider>();
+      postProvider.resetState();
+    });
   }
 
   @override

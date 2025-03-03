@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../data/local/local_database_service.dart';
 import '../../data/model/restaurant.dart';
+import '../../utils/enums.dart';
+import '../connection/connectivity_provider.dart';
 
 class LocalDatabaseProvider extends ChangeNotifier {
   final LocalDatabaseService _service;
+  final ConnectivityProvider _connectivityProvider;
 
-  LocalDatabaseProvider(this._service);
+  LocalDatabaseProvider(this._service, this._connectivityProvider);
 
+  String _isError = ErrorType.none.name;
+  String get isError => _isError;
   String _message = "";
   String get message => _message;
 
@@ -33,6 +38,14 @@ class LocalDatabaseProvider extends ChangeNotifier {
   }
 
   Future<void> loadAllRestaurant() async {
+    _isError = ErrorType.none.name;
+    notifyListeners();
+    if (!_connectivityProvider.hasInternetConnection) {
+      _isError = ErrorType.noInternetConnection.name;
+      notifyListeners();
+      return;
+    }
+
     try {
       _restaurantList = await _service.getAllItems();
       _restaurant = null;
@@ -60,6 +73,7 @@ class LocalDatabaseProvider extends ChangeNotifier {
       await _service.removeItem(id);
       _message = "Your data is removed";
       _restaurantList = await _service.getAllItems();
+      _restaurant = null;
       notifyListeners();
     } catch (e) {
       _message = "Failed to remove your data";

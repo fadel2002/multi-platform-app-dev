@@ -1,3 +1,4 @@
+import 'package:belajar_fundamental_aplikasi_flutter/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -31,8 +32,31 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       body: Consumer<LocalDatabaseProvider>(
         builder: (context, value, child){
           final favoriteList = value.restaurantList ?? [];
-          if (favoriteList.isEmpty){
-            return Center(child: Text("No favorite restaurants added yet", style: Theme.of(context).textTheme.bodyLarge));
+          if (favoriteList.isEmpty || value.isError == ErrorType.noInternetConnection.name){
+            return Center(
+              child: Column(
+                spacing: 10,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    child: Text(
+                      favoriteList.isEmpty
+                          ? "No favorite restaurants added yet."
+                          : "No internet connection found. Please check your connection and try again.",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+                  (value.isError == ErrorType.noInternetConnection.name && favoriteList.isNotEmpty) ? ElevatedButton(
+                    onPressed: () {
+                      context.read<LocalDatabaseProvider>().loadAllRestaurant();
+                    },
+                    child: const Text("Retry"),
+                  ) : SizedBox(),
+                ],
+              ),
+            );
           }
           return ListView.builder(
               itemCount: favoriteList.length,

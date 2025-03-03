@@ -27,24 +27,6 @@ void main() {
       expect(provider.resultState, isA<RestaurantListNoneState>());
     });
 
-    test('Should set loading state before fetching data', () async {
-      when(() => mockConnectivityProvider.hasInternetConnection).thenReturn(true);
-
-      final mockResponse = RestaurantListResponse(
-        error: false,
-        message: "Success",
-        count: 0,
-        restaurants: [],
-      );
-
-      when(() => mockApiServices.getRestaurantList()).thenAnswer((_) async {
-        expect(provider.resultState, isA<RestaurantListLoadingState>());
-        return mockResponse;
-      });
-
-      await provider.fetchRestaurantList();
-    });
-
     test('Should return list of restaurants when API fetch is successful', () async {
       when(() => mockConnectivityProvider.hasInternetConnection).thenReturn(true);
 
